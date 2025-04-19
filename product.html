@@ -3,942 +3,703 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>产品详情 - Xhobon官方网站</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
-    
-    
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+    <title>Xhobon - 数码科技产品商城</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#ff6700',secondary:'#424242'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        body {
+            font-family: 'Inter', 'Noto Sans SC', sans-serif;
+        }
+        .hero-gradient {
+            background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 40%, rgba(255, 255, 255, 0) 100%);
+        }
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #ff6700;
+            transition: width 0.3s;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .nav-link.active::after {
+            width: 100%;
+        }
+        .search-input:focus {
+            outline: none;
+        }
+        .language-selector {
+            position: relative;
+        }
+        .language-options {
+            display: none;
+            position: absolute;
+            top: 100%;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            min-width: 120px;
+            z-index: 10;
+        }
+        .language-selector:hover .language-options {
+            display: block;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .flash-sale-timer {
+            font-variant-numeric: tabular-nums;
+        }
+        .product-card {
+            transition: all 0.3s ease;
+        }
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+        .product-card .add-to-cart {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .product-card:hover .add-to-cart {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-<body>
-    <!-- 顶部导航栏 -->
-    <header class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="index.html"><img src="images/logo.svg" alt="Xhobon" height="40"></a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav me-auto">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown">
-                            手机
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">全部手机</a></li>
-                            <li><a class="dropdown-item" href="#">新品</a></li>
-                            <li><a class="dropdown-item" href="#">热销机型</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown">
-                            电视
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">全部电视</a></li>
-                            <li><a class="dropdown-item" href="#">智能电视</a></li>
-                            <li><a class="dropdown-item" href="#">激光投影</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown">
-                            家电
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">全部家电</a></li>
-                            <li><a class="dropdown-item" href="#">空调</a></li>
-                            <li><a class="dropdown-item" href="#">净化器</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown">
-                            智能硬件
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">全部智能硬件</a></li>
-                            <li><a class="dropdown-item" href="#">穿戴设备</a></li>
-                            <li><a class="dropdown-item" href="#">智能家居</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="about.html">关于我们</a>
-                    </li>
-                </ul>
-                <div class="d-flex">
-                    <div class="dropdown me-2">
-                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown">
-                            中文
+<body class="bg-gray-50">
+    <!-- 顶部导航 -->
+    <div class="bg-white shadow-sm">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-2 text-sm text-gray-600">
+                <div class="flex items-center space-x-4">
+                    <a href="#" class="hover:text-primary transition-colors">商家入驻</a>
+                    <a href="#" class="hover:text-primary transition-colors">企业采购</a>
+                    <a href="#" class="hover:text-primary transition-colors">帮助中心</a>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div class="language-selector">
+                        <button class="flex items-center space-x-1 hover:text-primary transition-colors">
+                            <span>中文</span>
+                            <div class="w-4 h-4 flex items-center justify-center">
+                                <i class="ri-arrow-down-s-line"></i>
+                            </div>
                         </button>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">中文</a></li>
-                            <li><a class="dropdown-item" href="#">English</a></li>
-                            <li><a class="dropdown-item" href="#">Bahasa Indonesia</a></li>
-                        </ul>
+                        <div class="language-options">
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:text-primary">English</a>
+                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:text-primary">ภาษาไทย</a>
+                        </div>
                     </div>
-                    <a href="#" class="btn btn-outline-secondary me-2">登录</a>
-                    <a href="#" class="btn btn-outline-secondary me-2">注册</a>
-                    <a href="cart.html" class="btn btn-outline-secondary">
-                        <i class="bi bi-cart"></i> 购物车
-                    </a>
+                    <a href="#" class="hover:text-primary transition-colors">登录</a>
+                    <a href="#" class="hover:text-primary transition-colors">注册</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 主导航 -->
+    <header class="bg-white shadow-md sticky top-0 z-30">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center py-4">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-['Pacifico'] text-primary mr-12">Xhobon</a>
+                    <nav class="hidden lg:flex space-x-8">
+                        <a href="#" class="nav-link active font-medium">首页</a>
+                        <a href="#" class="nav-link font-medium">手机</a>
+                        <a href="#" class="nav-link font-medium">电脑</a>
+                        <a href="#" class="nav-link font-medium">智能家居</a>
+                        <a href="#" class="nav-link font-medium">配件</a>
+                        <a href="#" class="nav-link font-medium">闪购</a>
+                        <a href="#" class="nav-link font-medium">新品</a>
+                    </nav>
+                </div>
+                <div class="flex items-center space-x-6">
+                    <div class="relative">
+                        <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 w-64">
+                            <input type="text" placeholder="搜索商品" class="bg-transparent border-none w-full text-sm search-input">
+                            <div class="w-5 h-5 flex items-center justify-center text-gray-500">
+                                <i class="ri-search-line"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative">
+                        <i class="ri-user-line text-xl"></i>
+                    </div>
+                    <div class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative">
+                        <i class="ri-shopping-cart-line text-xl"></i>
+                        <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+                    </div>
                 </div>
             </div>
         </div>
     </header>
 
-    <!-- 产品详情 -->
-    <div class="container mt-5 pt-5">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="index.html">首页</a></li>
-                <li class="breadcrumb-item"><a href="#">智能手机</a></li>
-                <li class="breadcrumb-item active" aria-current="page">智能手机 Pro</li>
-            </ol>
-        </nav>
-
-        <div class="row mt-4">
-            <!-- 产品图片 -->
-            <div class="col-md-6">
-                <div class="product-gallery">
-                    <div class="main-image bg-light mb-3" style="height: 400px; display: flex; align-items: center; justify-content: center;">
-                        <span class="text-muted">产品主图</span>
-                    </div>
-                    <div class="row">
-                        <div class="col-3">
-                            <div class="thumbnail bg-light" style="height: 80px; cursor: pointer;"></div>
-                        </div>
-                        <div class="col-3">
-                            <div class="thumbnail bg-light" style="height: 80px; cursor: pointer;"></div>
-                        </div>
-                        <div class="col-3">
-                            <div class="thumbnail bg-light" style="height: 80px; cursor: pointer;"></div>
-                        </div>
-                        <div class="col-3">
-                            <div class="thumbnail bg-light" style="height: 80px; cursor: pointer;"></div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 产品信息 -->
-            <div class="col-md-6">
-                <h1 class="product-title">智能手机 Pro</h1>
-                <div class="product-subtitle text-muted mb-3">高性能处理器，超长续航</div>
-                
-                <div class="product-price mb-3">
-                    <span class="current-price text-danger fw-bold fs-3">¥2999</span>
-                    <span class="original-price text-muted text-decoration-line-through ms-2">¥3299</span>
-                    <span class="badge bg-danger ms-2">立减300</span>
-                </div>
-                
-                <div class="product-rating mb-3">
-                    <div class="rating">
-                        <i class="bi bi-star-fill star"></i>
-                        <i class="bi bi-star-fill star"></i>
-                        <i class="bi bi-star-fill star"></i>
-                        <i class="bi bi-star-fill star"></i>
-                        <i class="bi bi-star-half star"></i>
-                    </div>
-                    <span class="rating-count">4.5 (125条评价)</span>
-                </div>
-                
-                <div class="product-options mb-4">
-                    <div class="option-group mb-3">
-                        <div class="option-title mb-2">颜色</div>
-                        <div class="option-items">
-                            <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="color" id="color1" autocomplete="off" checked>
-                                <label class="btn btn-outline-secondary" for="color1">深空灰</label>
-                                
-                                <input type="radio" class="btn-check" name="color" id="color2" autocomplete="off">
-                                <label class="btn btn-outline-secondary" for="color2">银色</label>
-                                
-                                <input type="radio" class="btn-check" name="color" id="color3" autocomplete="off">
-                                <label class="btn btn-outline-secondary" for="color3">金色</label>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="option-group mb-3">
-                        <div class="option-title mb-2">存储容量</div>
-                        <div class="option-items">
-                            <div class="btn-group" role="group">
-                                <input type="radio" class="btn-check" name="storage" id="storage1" autocomplete="off" checked>
-                                <label class="btn btn-outline-secondary" for="storage1">128GB</label>
-                                
-                                <input type="radio" class="btn-check" name="storage" id="storage2" autocomplete="off">
-                                <label class="btn btn-outline-secondary" for="storage2">256GB</label>
-                                
-                                <input type="radio" class="btn-check" name="storage" id="storage3" autocomplete="off">
-                                <label class="btn btn-outline-secondary" for="storage3">512GB</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="product-quantity mb-4">
-                    <div class="option-title mb-2">数量</div>
-                    <div class="input-group" style="width: 150px;">
-                        <button class="btn btn-outline-secondary" type="button" id="decreaseQuantity">-</button>
-                        <input type="text" class="form-control text-center" value="1" id="quantityInput">
-                        <button class="btn btn-outline-secondary" type="button" id="increaseQuantity">+</button>
-                    </div>
-                </div>
-                
-                <div class="product-actions mb-4">
-                    <button class="btn btn-xiaomi btn-lg me-2" id="buyNowBtn">立即购买</button>
-                    <button class="btn btn-xiaomi-outline btn-lg" id="addToCartBtn">加入购物车</button>
-                </div>
-                
-                <div class="product-services mb-4">
-                    <div class="service-item mb-2">
-                        <i class="bi bi-check-circle-fill text-success me-2"></i>
-                        <span>官方正品</span>
-                    </div>
-                    <div class="service-item mb-2">
-                        <i class="bi bi-check-circle-fill text-success me-2"></i>
-                        <span>7天无理由退货</span>
-                    </div>
-                    <div class="service-item mb-2">
-                        <i class="bi bi-check-circle-fill text-success me-2"></i>
-                        <span>15天质量问题换货</span>
-                    </div>
-                    <div class="service-item mb-2">
-                        <i class="bi bi-check-circle-fill text-success me-2"></i>
-                        <span>1年保修服务</span>
-                    </div>
-                </div>
-                
-                <div class="product-share">
-                    <div class="option-title mb-2">分享</div>
-                    <div class="social-share-buttons">
-                        <button class="btn btn-sm social-share-btn" data-platform="facebook">
-                            <i class="bi bi-facebook"></i>
-                        </button>
-                        <button class="btn btn-sm social-share-btn" data-platform="twitter">
-                            <i class="bi bi-twitter"></i>
-                        </button>
-                        <button class="btn btn-sm social-share-btn" data-platform="instagram">
-                            <i class="bi bi-instagram"></i>
-                        </button>
-                        <button class="btn btn-sm social-share-btn" data-platform="weibo">
-                            <i class="bi bi-sina-weibo"></i>
-                        </button>
-                        <button class="btn btn-sm social-share-btn" data-platform="wechat">
-                            <i class="bi bi-wechat"></i>
-                        </button>
-                    </div>
+    <!-- Hero 区域 -->
+    <section class="relative overflow-hidden">
+        <div class="absolute inset-0 w-full h-full" style="background-image: url('https://readdy.ai/api/search-image?query=Modern%20minimalist%20digital%20electronics%20store%20hero%20image%20with%20smartphones%2C%20laptops%2C%20and%20smart%20gadgets%20on%20a%20clean%20white%20background%20with%20subtle%20orange%20accents.%20The%20left%20side%20has%20ample%20white%20space%20for%20text%2C%20while%20the%20right%20side%20showcases%20premium%20tech%20products.%20Professional%20product%20photography%20style%20with%20soft%20shadows%20and%20reflections.&width=1920&height=600&seq=1&orientation=landscape'); background-size: cover; background-position: center;"></div>
+        <div class="relative z-10 container mx-auto px-4 py-20">
+            <div class="hero-gradient max-w-2xl py-16 px-10 rounded-xl">
+                <h1 class="text-5xl font-bold mb-6 text-gray-900">科技改变生活，品质源于选择</h1>
+                <p class="text-xl text-gray-700 mb-8">探索 Xhobon 精选全球高品质数码产品，享受科技带来的便捷与乐趣</p>
+                <div class="flex space-x-4">
+                    <button class="bg-primary text-white px-8 py-3 font-medium !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">立即选购</button>
+                    <button class="bg-white text-primary border border-primary px-8 py-3 font-medium !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors">了解更多</button>
                 </div>
             </div>
         </div>
-        
-        <!-- 产品详情标签页 -->
-        <div class="product-tabs mt-5">
-            <ul class="nav nav-tabs" id="productTab" role="tablist">
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link active" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="true">产品详情</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="specs-tab" data-bs-toggle="tab" data-bs-target="#specs" type="button" role="tab" aria-controls="specs" aria-selected="false">规格参数</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="reviews-tab" data-bs-toggle="tab" data-bs-target="#reviews" type="button" role="tab" aria-controls="reviews" aria-selected="false">用户评价</button>
-                </li>
-                <li class="nav-item" role="presentation">
-                    <button class="nav-link" id="faq-tab" data-bs-toggle="tab" data-bs-target="#faq" type="button" role="tab" aria-controls="faq" aria-selected="false">常见问题</button>
-                </li>
-            </ul>
-            <div class="tab-content p-4 border border-top-0 rounded-bottom" id="productTabContent">
-                <!-- 产品详情 -->
-                <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab">
-                    <div class="product-details">
-                        <h3>产品介绍</h3>
-                        <p>智能手机 Pro 是我们最新推出的旗舰产品，采用全新一代处理器，提供卓越的性能体验。6.7英寸的超视网膜XDR显示屏，带来震撼的视觉效果。</p>
-                        
-                        <div class="feature-section my-4">
-                            <h4>强大性能</h4>
-                            <p>搭载最新一代处理器，性能提升50%，能效提升30%，带来流畅的操作体验和出色的游戏性能。</p>
-                            <div class="bg-light p-3 text-center mb-4" style="height: 200px; display: flex; align-items: center; justify-content: center;">
-                                <span class="text-muted">性能展示图</span>
+    </section>
+
+    <!-- 分类导航 -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-10">热门分类</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+                        <i class="ri-smartphone-line text-primary text-2xl"></i>
+                    </div>
+                    <span class="font-medium">手机</span>
+                </a>
+                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+                        <i class="ri-macbook-line text-primary text-2xl"></i>
+                    </div>
+                    <span class="font-medium">笔记本</span>
+                </a>
+                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+                        <i class="ri-tablet-line text-primary text-2xl"></i>
+                    </div>
+                    <span class="font-medium">平板</span>
+                </a>
+                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+                        <i class="ri-headphone-line text-primary text-2xl"></i>
+                    </div>
+                    <span class="font-medium">耳机</span>
+                </a>
+                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+                        <i class="ri-tv-line text-primary text-2xl"></i>
+                    </div>
+                    <span class="font-medium">智能电视</span>
+                </a>
+                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+                        <i class="ri-home-wifi-line text-primary text-2xl"></i>
+                    </div>
+                    <span class="font-medium">智能家居</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- 闪购专区 -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold">限时闪购</h2>
+                <div class="flex items-center space-x-4">
+                    <div class="flash-sale-timer flex space-x-2">
+                        <div class="bg-primary text-white rounded px-2 py-1 text-sm">23</div>
+                        <span class="text-gray-500">:</span>
+                        <div class="bg-primary text-white rounded px-2 py-1 text-sm">45</div>
+                        <span class="text-gray-500">:</span>
+                        <div class="bg-primary text-white rounded px-2 py-1 text-sm">19</div>
+                    </div>
+                    <a href="#" class="text-primary hover:underline">查看全部</a>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 7.5 折</span>
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20sleek%20smartphone%20with%20minimalist%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=2&orientation=squarish" alt="智能手机" class="w-full h-48 object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-2">X12 Pro 5G 智能手机</h3>
+                        <p class="text-sm text-gray-500 mb-2">8GB+256GB 曜石黑</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-primary font-bold">¥3,299</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">¥4,399</span>
                             </div>
-                        </div>
-                        
-                        <div class="feature-section my-4">
-                            <h4>专业相机系统</h4>
-                            <p>后置三摄系统，包括4800万像素主摄、1200万像素超广角和1200万像素长焦镜头，支持4K视频录制，夜景模式让夜晚拍摄更清晰。</p>
-                            <div class="bg-light p-3 text-center mb-4" style="height: 200px; display: flex; align-items: center; justify-content: center;">
-                                <span class="text-muted">相机展示图</span>
-                            </div>
-                        </div>
-                        
-                        <div class="feature-section my-4">
-                            <h4>超长续航</h4>
-                            <p>5000mAh大容量电池，支持一整天的使用。67W快充技术，30分钟可充电70%。</p>
-                            <div class="bg-light p-3 text-center mb-4" style="height: 200px; display: flex; align-items: center; justify-content: center;">
-                                <span class="text-muted">电池展示图</span>
-                            </div>
+                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+                                <i class="ri-add-line"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-                
-                <!-- 规格参数 -->
-                <div class="tab-pane fade" id="specs" role="tabpanel" aria-labelledby="specs-tab">
-                    <div class="product-specs">
-                        <h3>基本参数</h3>
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr>
-                                    <th scope="row" width="30%">品牌</th>
-                                    <td>Xhobon</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">型号</th>
-                                    <td>智能手机 Pro</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">上市日期</th>
-                                    <td>2025年4月</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">操作系统</th>
-                                    <td>Android 15</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <h3 class="mt-4">屏幕参数</h3>
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr>
-                                    <th scope="row" width="30%">屏幕尺寸</th>
-                                    <td>6.7英寸</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">屏幕类型</th>
-                                    <td>AMOLED</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">分辨率</th>
-                                    <td>2778 x 1284 像素</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">刷新率</th>
-                                    <td>120Hz</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <h3 class="mt-4">硬件参数</h3>
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr>
-                                    <th scope="row" width="30%">处理器</th>
-                                    <td>骁龙8 Gen 3</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">RAM</th>
-                                    <td>8GB/12GB/16GB</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">存储容量</th>
-                                    <td>128GB/256GB/512GB</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">电池容量</th>
-                                    <td>5000mAh</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">充电</th>
-                                    <td>67W有线快充，50W无线快充</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        
-                        <h3 class="mt-4">相机参数</h3>
-                        <table class="table table-striped">
-                            <tbody>
-                                <tr>
-                                    <th scope="row" width="30%">后置摄像头</th>
-                                    <td>4800万像素主摄 + 1200万像素超广角 + 1200万像素长焦</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">前置摄像头</th>
-                                    <td>2000万像素</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">视频拍摄</th>
-                                    <td>4K@60fps，1080p@240fps</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 8 折</span>
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20wireless%20earbuds%20with%20charging%20case%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=3&orientation=squarish" alt="无线耳机" class="w-full h-48 object-cover object-top">
                     </div>
-                </div>
-                
-                <!-- 用户评价 -->
-                <div class="tab-pane fade" id="reviews" role="tabpanel" aria-labelledby="reviews-tab">
-                    <div class="product-reviews">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="review-summary text-center p-4">
-                                    <h3 class="review-score">4.5</h3>
-                                    <div class="rating mb-2">
-                                        <i class="bi bi-star-fill star"></i>
-                                        <i class="bi bi-star-fill star"></i>
-                                        <i class="bi bi-star-fill star"></i>
-                                        <i class="bi bi-star-fill star"></i>
-                                        <i class="bi bi-star-half star"></i>
-                                    </div>
-                                    <div class="review-count">基于125条评价</div>
-                                    
-                                    <div class="rating-distribution mt-4">
-                                        <div class="rating-bar d-flex align-items-center mb-2">
-                                            <span class="me-2">5星</span>
-                                            <div class="progress flex-grow-1" style="height: 8px;">
-                                                <div class="progress-bar bg-success" style="width: 75%"></div>
-                                            </div>
-                                            <span class="ms-2">75%</span>
-                                        </div>
-                                        <div class="rating-bar d-flex align-items-center mb-2">
-                                            <span class="me-2">4星</span>
-                                            <div class="progress flex-grow-1" style="height: 8px;">
-                                                <div class="progress-bar bg-success" style="width: 15%"></div>
-                                            </div>
-                                            <span class="ms-2">15%</span>
-                                        </div>
-                                        <div class="rating-bar d-flex align-items-center mb-2">
-                                            <span class="me-2">3星</span>
-                                            <div class="progress flex-grow-1" style="height: 8px;">
-                                                <div class="progress-bar bg-warning" style="width: 5%"></div>
-                                            </div>
-                                            <span class="ms-2">5%</span>
-                                        </div>
-                                        <div class="rating-bar d-flex align-items-center mb-2">
-                                            <span class="me-2">2星</span>
-                                            <div class="progress flex-grow-1" style="height: 8px;">
-                                                <div class="progress-bar bg-danger" style="width: 3%"></div>
-                                            </div>
-                                            <span class="ms-2">3%</span>
-                                        </div>
-                                        <div class="rating-bar d-flex align-items-center mb-2">
-                                            <span class="me-2">1星</span>
-                                            <div class="progress flex-grow-1" style="height: 8px;">
-                                                <div class="progress-bar bg-danger" style="width: 2%"></div>
-                                            </div>
-                                            <span class="ms-2">2%</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <button class="btn btn-xiaomi mt-4" id="writeReviewBtn">写评价</button>
-                                </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-2">AirBuds Pro 无线耳机</h3>
+                        <p class="text-sm text-gray-500 mb-2">主动降噪 40小时续航</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-primary font-bold">¥799</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">¥999</span>
                             </div>
-                            
-                            <div class="col-md-8">
-                                <div class="review-filters mb-4">
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <div class="filter-options">
-                                            <button class="btn btn-sm btn-outline-secondary me-2 active">全部</button>
-                                            <button class="btn btn-sm btn-outline-secondary me-2">最新</button>
-                                            <button class="btn btn-sm btn-outline-secondary me-2">好评</button>
-                                            <button class="btn btn-sm btn-outline-secondary">差评</button>
-                                        </div>
-                                        <div class="sort-options">
-                                            <select class="form-select form-select-sm">
-                                                <option selected>按时间排序</option>
-                                                <option>按评分排序</option>
-                                                <option>按点赞数排序</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="review-list">
-                                    <!-- 评价1 -->
-                                    <div class="review-item mb-4 pb-4 border-bottom">
-                                        <div class="d-flex justify-content-between align-items-start mb-2">
-                                            <div class="reviewer-info">
-                                                <div class="reviewer-name fw-bold">张先生</div>
-                                                <div class="review-date text-muted">2025-04-15</div>
-                                            </div>
-                                            <div class="review-rating">
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-fill star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="review-content mb-3">
-                                            <p>这款手机真的很棒！处理器性能强大，玩游戏完全没有卡顿。电池续航也很给力，重度使用一天没问题。相机拍照效果也很不错，尤其是夜景模式，比我之前的手机好太多了。总体来说非常满意这次购买。</p>
-                                        </div>
-                                        <div class="review-images mb-3">
-                                            <div class="row g-2">
-                                                <div class="col-2">
-                                                    <div class="bg-light" style="height: 60px;"></div>
-                                                </div>
-                                                <div class="col-2">
-                                                    <div class="bg-light" style="height: 60px;"></div>
-                                                </div>
-                                                <div class="col-2">
-                                                    <div class="bg-light" style="height: 60px;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="review-actions">
-                                            <button class="btn btn-sm btn-outline-secondary me-2">
-                                                <i class="bi bi-hand-thumbs-up"></i> 有用 (15)
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-secondary">
-                                                <i class="bi bi-chat"></i> 回复
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- 评价2 -->
-                                    <div class="review-item mb-4 pb-4 border-bottom">
-                                        <div class="d-flex justify-content-between align-items-start mb-2">
-                                            <div class="reviewer-info">
-                                                <div class="reviewer-name fw-bold">李女士</div>
-                                                <div class="review-date text-muted">2025-04-10</div>
-                                            </div>
-                                            <div class="review-rating">
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star star-empty"></i>
-                                            </div>
-                                        </div>
-                                        <div class="review-content mb-3">
-                                            <p>手机整体表现不错，外观设计很漂亮，手感也很好。系统流畅，日常使用完全没问题。拍照效果还可以，但在弱光环境下表现一般。电池续航满足一天使用没问题。唯一不太满意的是充电速度没有宣传的那么快。</p>
-                                        </div>
-                                        <div class="review-actions">
-                                            <button class="btn btn-sm btn-outline-secondary me-2">
-                                                <i class="bi bi-hand-thumbs-up"></i> 有用 (8)
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-secondary">
-                                                <i class="bi bi-chat"></i> 回复
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- 评价3 -->
-                                    <div class="review-item mb-4 pb-4 border-bottom">
-                                        <div class="d-flex justify-content-between align-items-start mb-2">
-                                            <div class="reviewer-info">
-                                                <div class="reviewer-name fw-bold">王先生</div>
-                                                <div class="review-date text-muted">2025-04-05</div>
-                                            </div>
-                                            <div class="review-rating">
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-fill star"></i>
-                                                <i class="bi bi-star-half star"></i>
-                                            </div>
-                                        </div>
-                                        <div class="review-content mb-3">
-                                            <p>作为一个数码爱好者，我对这款手机的性能非常满意。骁龙8 Gen 3处理器表现出色，安兔兔跑分超过120万。屏幕显示效果很棒，120Hz刷新率使得滑动非常流畅。相机系统也很强大，尤其是主摄，细节表现很好。唯一的缺点是在阳光下屏幕亮度还可以再高一些。总体来说是一款值得推荐的旗舰手机。</p>
-                                        </div>
-                                        <div class="review-images mb-3">
-                                            <div class="row g-2">
-                                                <div class="col-2">
-                                                    <div class="bg-light" style="height: 60px;"></div>
-                                                </div>
-                                                <div class="col-2">
-                                                    <div class="bg-light" style="height: 60px;"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="review-actions">
-                                            <button class="btn btn-sm btn-outline-secondary me-2">
-                                                <i class="bi bi-hand-thumbs-up"></i> 有用 (23)
-                                            </button>
-                                            <button class="btn btn-sm btn-outline-secondary">
-                                                <i class="bi bi-chat"></i> 回复
-                                            </button>
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- 加载更多按钮 -->
-                                    <div class="text-center">
-                                        <button class="btn btn-outline-secondary" id="loadMoreReviewsBtn">加载更多评价</button>
-                                    </div>
-                                </div>
-                            </div>
+                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+                                <i class="ri-add-line"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-                
-                <!-- 常见问题 -->
-                <div class="tab-pane fade" id="faq" role="tabpanel" aria-labelledby="faq-tab">
-                    <div class="product-faq">
-                        <h3>常见问题</h3>
-                        
-                        <div class="accordion" id="faqAccordion">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faqHeading1">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
-                                        这款手机支持5G网络吗？
-                                    </button>
-                                </h2>
-                                <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faqHeading1" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        是的，智能手机 Pro 支持全球主流的5G网络频段，包括n1/n3/n5/n8/n28/n41/n77/n78/n79等。
-                                    </div>
-                                </div>
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 7 折</span>
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20sleek%20smartwatch%20with%20silicone%20band%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=4&orientation=squarish" alt="智能手表" class="w-full h-48 object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-2">SmartWatch X 智能手表</h3>
+                        <p class="text-sm text-gray-500 mb-2">心率监测 运动追踪</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-primary font-bold">¥699</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">¥999</span>
                             </div>
-                            
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faqHeading2">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
-                                        手机是否支持内存卡扩展？
-                                    </button>
-                                </h2>
-                                <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faqHeading2" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        不支持，智能手机 Pro 只提供内置存储，不支持通过SD卡或其他方式扩展存储空间。建议根据个人需求选择合适的存储容量版本。
-                                    </div>
-                                </div>
+                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+                                <i class="ri-add-line"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 8.5 折</span>
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20portable%20bluetooth%20speaker%20with%20minimalist%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=5&orientation=squarish" alt="蓝牙音箱" class="w-full h-48 object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-2">SoundBox Mini 蓝牙音箱</h3>
+                        <p class="text-sm text-gray-500 mb-2">防水 24小时续航</p>
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <span class="text-primary font-bold">¥299</span>
+                                <span class="text-gray-400 line-through text-sm ml-2">¥349</span>
                             </div>
-                            
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faqHeading3">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
-                                        手机防水等级是多少？
-                                    </button>
-                                </h2>
-                                <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faqHeading3" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        智能手机 Pro 具有IP68防水防尘等级，可以在最深2米的水下停留最多30分钟。但请注意，防水性能可能会随着时间的推移而下降，不建议在游泳、潜水或其他水上活动中使用手机。
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faqHeading4">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
-                                        手机支持无线充电吗？
-                                    </button>
-                                </h2>
-                                <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faqHeading4" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        是的，智能手机 Pro 支持50W无线快充，使用我们的官方无线充电器可以在45分钟内充电至80%。同时也兼容Qi标准的无线充电器，但充电速度可能会有所降低。
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="faqHeading5">
-                                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse5" aria-expanded="false" aria-controls="faqCollapse5">
-                                        手机有几种颜色可选？
-                                    </button>
-                                </h2>
-                                <div id="faqCollapse5" class="accordion-collapse collapse" aria-labelledby="faqHeading5" data-bs-parent="#faqAccordion">
-                                    <div class="accordion-body">
-                                        智能手机 Pro 提供三种颜色选择：深空灰、银色和金色。不同地区可能供应的颜色有所不同，请以当地销售信息为准。
-                                    </div>
-                                </div>
-                            </div>
+                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+                                <i class="ri-add-line"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        
-        <!-- 相关产品推荐 -->
-        <div class="related-products mt-5">
-            <h3 class="section-title mb-4">相关产品推荐</h3>
-            <div class="row">
-                <div class="col-6 col-md-3 mb-4">
-                    <div class="card product-card">
-                        <div class="product-image bg-light" style="height: 200px;"></div>
-                        <div class="card-body">
-                            <h5 class="card-title">智能手机 标准版</h5>
-                            <p class="card-text text-muted">高性价比选择</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">¥1999</span>
-                                <a href="#" class="btn btn-sm btn-outline-primary">查看详情</a>
+    </section>
+
+    <!-- 新品首发 -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold">新品首发</h2>
+                <a href="#" class="text-primary hover:underline">查看全部</a>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm flex flex-col md:flex-row">
+                    <div class="md:w-1/2 p-8 flex flex-col justify-center">
+                        <span class="inline-block bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm mb-4">预售中</span>
+                        <h3 class="text-2xl font-bold mb-3">UltraBook Pro 14</h3>
+                        <p class="text-gray-600 mb-4">全新一代高性能轻薄笔记本，搭载最新处理器，16GB 内存，512GB 高速固态硬盘</p>
+                        <div class="mb-4">
+                            <span class="text-primary font-bold text-xl">¥6,999</span>
+                            <span class="text-sm text-gray-500 ml-2">预售享 8.8 折</span>
+                        </div>
+                        <button class="bg-primary text-white px-6 py-2 rounded-full !rounded-button whitespace-nowrap self-start hover:bg-opacity-90 transition-colors">立即预约</button>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20sleek%20laptop%20with%20minimalist%20design%20on%20light%20gray%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=500&height=400&seq=6&orientation=landscape" alt="UltraBook Pro 14" class="w-full h-full object-cover object-top">
+                    </div>
+                </div>
+                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm flex flex-col md:flex-row">
+                    <div class="md:w-1/2 p-8 flex flex-col justify-center">
+                        <span class="inline-block bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm mb-4">新品上市</span>
+                        <h3 class="text-2xl font-bold mb-3">智能家居套装</h3>
+                        <p class="text-gray-600 mb-4">一键控制全屋智能设备，包含智能音箱、智能灯泡、智能插座和门窗传感器</p>
+                        <div class="mb-4">
+                            <span class="text-primary font-bold text-xl">¥1,299</span>
+                            <span class="text-sm text-gray-500 ml-2">套装立省 ¥300</span>
+                        </div>
+                        <button class="bg-primary text-white px-6 py-2 rounded-full !rounded-button whitespace-nowrap self-start hover:bg-opacity-90 transition-colors">立即购买</button>
+                    </div>
+                    <div class="md:w-1/2">
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20smart%20home%20devices%20collection%20including%20smart%20speaker%2C%20smart%20bulb%2C%20and%20sensors%20on%20light%20gray%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=500&height=400&seq=7&orientation=landscape" alt="智能家居套装" class="w-full h-full object-cover object-top">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 热销榜单 -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold">热销榜单</h2>
+                <a href="#" class="text-primary hover:underline">查看全部</a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20tablet%20device%20with%20sleek%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=8&orientation=squarish" alt="平板电脑" class="w-full h-48 object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-2">TabPro 10.5 平板电脑</h3>
+                        <p class="text-sm text-gray-500 mb-2">2K 高清屏幕 8GB+128GB</p>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-half-fill"></i>
                             </div>
+                            <span class="text-xs text-gray-500 ml-1">(1,254)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-bold">¥2,499</span>
+                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+                                <i class="ri-add-line"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-3 mb-4">
-                    <div class="card product-card">
-                        <div class="product-image bg-light" style="height: 200px;"></div>
-                        <div class="card-body">
-                            <h5 class="card-title">智能手机 Pro Max</h5>
-                            <p class="card-text text-muted">旗舰中的旗舰</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">¥3999</span>
-                                <a href="#" class="btn btn-sm btn-outline-primary">查看详情</a>
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20gaming%20headphones%20with%20RGB%20lighting%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=9&orientation=squarish" alt="游戏耳机" class="w-full h-48 object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-2">GameAudio Pro 游戏耳机</h3>
+                        <p class="text-sm text-gray-500 mb-2">7.1 环绕声 RGB 灯效</p>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
                             </div>
+                            <span class="text-xs text-gray-500 ml-1">(876)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-bold">¥499</span>
+                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+                                <i class="ri-add-line"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-3 mb-4">
-                    <div class="card product-card">
-                        <div class="product-image bg-light" style="height: 200px;"></div>
-                        <div class="card-body">
-                            <h5 class="card-title">智能手表</h5>
-                            <p class="card-text text-muted">完美搭配智能手机</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">¥899</span>
-                                <a href="#" class="btn btn-sm btn-outline-primary">查看详情</a>
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20power%20bank%20with%20minimalist%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=10&orientation=squarish" alt="移动电源" class="w-full h-48 object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-2">PowerMax 20000mAh 移动电源</h3>
+                        <p class="text-sm text-gray-500 mb-2">65W 快充 双向快充</p>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-line"></i>
                             </div>
+                            <span class="text-xs text-gray-500 ml-1">(1,032)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-bold">¥199</span>
+                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+                                <i class="ri-add-line"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-md-3 mb-4">
-                    <div class="card product-card">
-                        <div class="product-image bg-light" style="height: 200px;"></div>
-                        <div class="card-body">
-                            <h5 class="card-title">无线耳机</h5>
-                            <p class="card-text text-muted">主动降噪，高清音质</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <span class="fw-bold">¥499</span>
-                                <a href="#" class="btn btn-sm btn-outline-primary">查看详情</a>
+                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+                    <div class="relative">
+                        <span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
+                        <img src="https://readdy.ai/api/search-image?query=Modern%20smart%20robot%20vacuum%20cleaner%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=11&orientation=squarish" alt="扫地机器人" class="w-full h-48 object-cover object-top">
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-medium mb-2">CleanBot Pro 扫地机器人</h3>
+                        <p class="text-sm text-gray-500 mb-2">激光导航 自动回充</p>
+                        <div class="flex items-center mb-2">
+                            <div class="flex text-yellow-400">
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-fill"></i>
+                                <i class="ri-star-half-fill"></i>
                             </div>
+                            <span class="text-xs text-gray-500 ml-1">(653)</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-primary font-bold">¥1,799</span>
+                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+                                <i class="ri-add-line"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <!-- 底部导航 -->
-    <footer class="bg-light py-5 mt-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-3 mb-4">
-                    <h5>购物指南</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-decoration-none text-secondary">购物流程</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary">会员介绍</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary">常见问题</a></li>
+    <!-- 会员专享 -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="flex justify-between items-center mb-8">
+                <h2 class="text-2xl font-bold">会员专享</h2>
+                <a href="#" class="text-primary hover:underline">了解会员权益</a>
+            </div>
+            <div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg overflow-hidden shadow-lg">
+                <div class="flex flex-col lg:flex-row">
+                    <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+                        <div class="flex items-center mb-6">
+                            <div class="w-10 h-10 flex items-center justify-center bg-primary rounded-full mr-3">
+                                <i class="ri-vip-crown-fill text-white"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold text-white">Xhobon 会员</h3>
+                        </div>
+                        <p class="text-gray-300 mb-6">加入 Xhobon 会员，享受专属优惠、积分加速、生日礼遇等多重权益</p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center text-gray-300">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span>会员专享价格，最高可省 15%</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span>购物积分 2 倍加速</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span>生日当月送 500 积分</span>
+                            </li>
+                            <li class="flex items-center text-gray-300">
+                                <div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <span>专属客服通道</span>
+                            </li>
+                        </ul>
+                        <button class="bg-primary text-white px-8 py-3 rounded-full !rounded-button whitespace-nowrap self-start hover:bg-opacity-90 transition-colors">立即加入</button>
+                    </div>
+                    <div class="lg:w-1/2 relative">
+                        <img src="https://readdy.ai/api/search-image?query=Premium%20digital%20electronics%20collection%20with%20smartphones%2C%20laptops%2C%20headphones%2C%20and%20smartwatches%20arranged%20elegantly%20on%20dark%20background%20with%20gold%20accents%2C%20high-end%20product%20photography%20with%20dramatic%20lighting%2C%20luxury%20tech%20products%20display&width=600&height=500&seq=12&orientation=landscape" alt="会员专享" class="w-full h-full object-cover object-top">
+                        <div class="absolute bottom-6 right-6 bg-primary bg-opacity-90 text-white px-4 py-2 rounded-lg">
+                            <p class="font-bold">会员专享积分兑换</p>
+                            <p class="text-sm">低至 7 折</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 品牌推荐 -->
+    <section class="py-12 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-2xl font-bold text-center mb-10">品牌推荐</h2>
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 flex items-center justify-center mb-2">
+                            <i class="ri-apple-fill text-3xl text-gray-800"></i>
+                        </div>
+                        <span class="text-sm font-medium">Apple</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 flex items-center justify-center mb-2">
+                            <i class="ri-microsoft-fill text-3xl text-gray-800"></i>
+                        </div>
+                        <span class="text-sm font-medium">Microsoft</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 flex items-center justify-center mb-2">
+                            <i class="ri-google-fill text-3xl text-gray-800"></i>
+                        </div>
+                        <span class="text-sm font-medium">Google</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 flex items-center justify-center mb-2">
+                            <i class="ri-sony-fill text-3xl text-gray-800"></i>
+                        </div>
+                        <span class="text-sm font-medium">Sony</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 flex items-center justify-center mb-2">
+                            <i class="ri-samsung-fill text-3xl text-gray-800"></i>
+                        </div>
+                        <span class="text-sm font-medium">Samsung</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+                    <div class="flex flex-col items-center">
+                        <div class="w-12 h-12 flex items-center justify-center mb-2">
+                            <i class="ri-amazon-fill text-3xl text-gray-800"></i>
+                        </div>
+                        <span class="text-sm font-medium">Amazon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 订阅区域 -->
+    <section class="py-12 bg-white">
+        <div class="container mx-auto px-4">
+            <div class="max-w-3xl mx-auto text-center">
+                <h2 class="text-2xl font-bold mb-4">订阅我们</h2>
+                <p class="text-gray-600 mb-8">订阅 Xhobon 电子报，抢先获取新品资讯和独家优惠</p>
+                <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+                    <input type="email" placeholder="请输入您的邮箱" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:outline-none">
+                    <button class="bg-primary text-white px-6 py-3 rounded-lg !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">立即订阅</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer class="bg-gray-900 text-white pt-16 pb-8">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+                <div>
+                    <h3 class="text-xl font-['Pacifico'] mb-6">Xhobon</h3>
+                    <p class="text-gray-400 mb-6">专注于提供高品质数码产品的电商平台，致力于为用户带来更好的科技生活体验</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+                            <i class="ri-twitter-x-fill"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+                            <i class="ri-instagram-fill"></i>
+                        </a>
+                        <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+                            <i class="ri-wechat-fill"></i>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="text-lg font-medium mb-4">购物指南</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">新用户注册</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">购物流程</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">支付方式</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">会员权益</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3 mb-4">
-                    <h5>配送方式</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-decoration-none text-secondary">配送范围</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary">配送时间</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary">配送费用</a></li>
+                <div>
+                    <h4 class="text-lg font-medium mb-4">服务支持</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">售后政策</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">物流配送</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">退换货说明</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">保修与维修</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">联系客服</a></li>
                     </ul>
                 </div>
-                <div class="col-md-3 mb-4">
-                    <h5>支付方式</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-decoration-none text-secondary">支付宝</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary">微信支付</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary">银行卡支付</a></li>
-                    </ul>
-                </div>
-                <div class="col-md-3 mb-4">
-                    <h5>关于我们</h5>
-                    <ul class="list-unstyled">
-                        <li><a href="#" class="text-decoration-none text-secondary">公司介绍</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary">联系我们</a></li>
-                        <li><a href="#" class="text-decoration-none text-secondary">加入我们</a></li>
+                <div>
+                    <h4 class="text-lg font-medium mb-4">关于我们</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">公司介绍</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">招商合作</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">加入我们</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">隐私政策</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">用户协议</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="row mt-4">
-                <div class="col-12 text-center">
-                    <p class="text-muted">© 2025 Xhobon.com 版权所有</p>
+            <div class="border-t border-gray-800 pt-8">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="mb-4 md:mb-0">
+                        <p class="text-gray-400 text-sm">© 2025 Xhobon.com 版权所有</p>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <div class="flex items-center text-gray-400">
+                            <div class="w-6 h-6 flex items-center justify-center mr-1">
+                                <i class="ri-alipay-fill text-xl"></i>
+                            </div>
+                            <span class="text-sm">支付宝</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <div class="w-6 h-6 flex items-center justify-center mr-1">
+                                <i class="ri-wechat-pay-fill text-xl"></i>
+                            </div>
+                            <span class="text-sm">微信支付</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <div class="w-6 h-6 flex items-center justify-center mr-1">
+                                <i class="ri-paypal-fill text-xl"></i>
+                            </div>
+                            <span class="text-sm">PayPal</span>
+                        </div>
+                        <div class="flex items-center text-gray-400">
+                            <div class="w-6 h-6 flex items-center justify-center mr-1">
+                                <i class="ri-visa-fill text-xl"></i>
+                            </div>
+                            <span class="text-sm">Visa</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </footer>
 
-    <!-- 写评价模态框 -->
-    <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="reviewModalLabel">写评价</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="reviewForm">
-                        <div class="mb-3">
-                            <label class="form-label">总体评分</label>
-                            <div class="rating-input">
-                                <i class="bi bi-star-fill star-input" data-rating="1"></i>
-                                <i class="bi bi-star-fill star-input" data-rating="2"></i>
-                                <i class="bi bi-star-fill star-input" data-rating="3"></i>
-                                <i class="bi bi-star-fill star-input" data-rating="4"></i>
-                                <i class="bi bi-star-fill star-input" data-rating="5"></i>
-                                <input type="hidden" name="rating" id="ratingInput" value="5">
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="reviewContent" class="form-label">评价内容</label>
-                            <textarea class="form-control" id="reviewContent" rows="5" placeholder="请分享您对这款产品的使用体验..."></textarea>
-                        </div>
-                        <div class="mb-3">
-                            <label class="form-label">上传图片（可选）</label>
-                            <input type="file" class="form-control" id="reviewImages" multiple accept="image/*">
-                            <div class="form-text">最多可上传5张图片，每张不超过5MB</div>
-                        </div>
-                        <div class="mb-3">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" id="anonymousReview">
-                                <label class="form-check-label" for="anonymousReview">
-                                    匿名发布
-                                </label>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-xiaomi" id="submitReviewBtn">提交评价</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="js/core-functionality.js"></script>
-    <script src="js/main.js"></script>
     <script>
-        // 产品详情页特定脚本
         document.addEventListener('DOMContentLoaded', function() {
-            // 数量增减按钮
-            const quantityInput = document.getElementById('quantityInput');
-            const decreaseBtn = document.getElementById('decreaseQuantity');
-            const increaseBtn = document.getElementById('increaseQuantity');
-            
-            decreaseBtn.addEventListener('click', function() {
-                let value = parseInt(quantityInput.value);
-                if (value > 1) {
-                    quantityInput.value = value - 1;
+            // 闪购倒计时
+            function updateTimer() {
+                const now = new Date();
+                const hours = 23 - now.getHours();
+                const minutes = 59 - now.getMinutes();
+                const seconds = 59 - now.getSeconds();
+                
+                const timerElements = document.querySelectorAll('.flash-sale-timer div');
+                if (timerElements.length >= 3) {
+                    timerElements[0].textContent = hours < 10 ? '0' + hours : hours;
+                    timerElements[1].textContent = minutes < 10 ? '0' + minutes : minutes;
+                    timerElements[2].textContent = seconds < 10 ? '0' + seconds : seconds;
                 }
-            });
+            }
             
-            increaseBtn.addEventListener('click', function() {
-                let value = parseInt(quantityInput.value);
-                quantityInput.value = value + 1;
-            });
-            
-            // 加入购物车按钮
-            const addToCartBtn = document.getElementById('addToCartBtn');
-            addToCartBtn.addEventListener('click', function() {
-                const color = document.querySelector('input[name="color"]:checked').nextElementSibling.textContent;
-                const storage = document.querySelector('input[name="storage"]:checked').nextElementSibling.textContent;
-                const quantity = parseInt(quantityInput.value);
-                
-                alert(`已将 ${quantity} 个 ${color} ${storage} 智能手机 Pro 加入购物车`);
-            });
-            
-            // 立即购买按钮
-            const buyNowBtn = document.getElementById('buyNowBtn');
-            buyNowBtn.addEventListener('click', function() {
-                const color = document.querySelector('input[name="color"]:checked').nextElementSibling.textContent;
-                const storage = document.querySelector('input[name="storage"]:checked').nextElementSibling.textContent;
-                const quantity = parseInt(quantityInput.value);
-                
-                alert(`正在跳转到结算页面，购买 ${quantity} 个 ${color} ${storage} 智能手机 Pro`);
-                // 实际项目中应该跳转到结算页面
-                // window.location.href = 'checkout.html';
-            });
-            
-            // 写评价按钮
-            const writeReviewBtn = document.getElementById('writeReviewBtn');
-            writeReviewBtn.addEventListener('click', function() {
-                // 检查用户是否登录
-                if (window.XhobonSystems && window.XhobonSystems.memberPoints && !window.XhobonSystems.memberPoints.checkLogin()) {
-                    alert('请先登录后再写评价');
-                    return;
-                }
-                
-                // 显示评价模态框
-                const reviewModal = new bootstrap.Modal(document.getElementById('reviewModal'));
-                reviewModal.show();
-            });
-            
-            // 评分选择
-            const starInputs = document.querySelectorAll('.star-input');
-            const ratingInput = document.getElementById('ratingInput');
-            
-            starInputs.forEach(star => {
-                star.addEventListener('click', function() {
-                    const rating = parseInt(this.getAttribute('data-rating'));
-                    ratingInput.value = rating;
-                    
-                    // 更新星星显示
-                    starInputs.forEach((s, index) => {
-                        if (index < rating) {
-                            s.style.color = '#ffc107'; // 选中的星星
-                        } else {
-                            s.style.color = '#e0e0e0'; // 未选中的星星
-                        }
-                    });
-                });
-            });
-            
-            // 提交评价
-            const submitReviewBtn = document.getElementById('submitReviewBtn');
-            submitReviewBtn.addEventListener('click', function() {
-                const rating = parseInt(ratingInput.value);
-                const content = document.getElementById('reviewContent').value;
-                
-                if (!content) {
-                    alert('请填写评价内容');
-                    return;
-                }
-                
-                // 使用产品评论系统添加评论
-                if (window.XhobonSystems && window.XhobonSystems.productReview) {
-                    const userInfo = window.XhobonSystems.memberPoints.getUserInfo();
-                    const username = userInfo ? userInfo.username : '匿名用户';
-                    
-                    const success = window.XhobonSystems.productReview.addReview(
-                        'p1', // 产品ID
-                        document.getElementById('anonymousReview').checked ? '匿名用户' : username,
-                        rating,
-                        content
-                    );
-                    
-                    if (success) {
-                        alert('评价提交成功！');
-                        
-                        // 关闭模态框
-                        const reviewModal = bootstrap.Modal.getInstance(document.getElementById('reviewModal'));
-                        reviewModal.hide();
-                        
-                        // 如果用户已登录，添加积分
-                        if (userInfo) {
-                            window.XhobonSystems.memberPoints.addPoints(10, '发表产品评价');
-                        }
-                    } else {
-                        alert('评价提交失败，请稍后重试');
-                    }
-                } else {
-                    alert('评价系统未初始化，请刷新页面后重试');
-                }
-            });
-            
-            // 社交分享按钮
-            const shareButtons = document.querySelectorAll('.social-share-btn');
-            shareButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    const platform = this.getAttribute('data-platform');
-                    
-                    if (window.XhobonSystems && window.XhobonSystems.socialMedia) {
-                        const shareData = {
-                            title: '智能手机 Pro - Xhobon官方网站',
-                            url: window.location.href,
-                            description: '高性能处理器，超长续航，专业相机系统，尽在智能手机 Pro',
-                            image: 'https://example.com/images/smartphone-pro.jpg'
-                        };
-                        
-                        window.XhobonSystems.socialMedia.shareToSocialMedia(platform, shareData);
-                    } else {
-                        alert(`分享到 ${platform} 功能暂未实现`);
-                    }
-                });
-            });
+            updateTimer();
+            setInterval(updateTimer, 1000);
         });
     </script>
 </body>
