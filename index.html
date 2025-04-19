@@ -1,706 +1,742 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Xhobon - 数码科技产品商城</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
-    <script>tailwind.config={theme:{extend:{colors:{primary:'#ff6700',secondary:'#424242'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
-    <style>
-        :where([class^="ri-"])::before { content: "\f3c2"; }
-        body {
-            font-family: 'Inter', 'Noto Sans SC', sans-serif;
-        }
-        .hero-gradient {
-            background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 40%, rgba(255, 255, 255, 0) 100%);
-        }
-        .nav-link {
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: #ff6700;
-            transition: width 0.3s;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-        .nav-link.active::after {
-            width: 100%;
-        }
-        .search-input:focus {
-            outline: none;
-        }
-        .language-selector {
-            position: relative;
-        }
-        .language-options {
-            display: none;
-            position: absolute;
-            top: 100%;
-            right: 0;
-            background-color: white;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            min-width: 120px;
-            z-index: 10;
-        }
-        .language-selector:hover .language-options {
-            display: block;
-        }
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        .flash-sale-timer {
-            font-variant-numeric: tabular-nums;
-        }
-        .product-card {
-            transition: all 0.3s ease;
-        }
-        .product-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-        }
-        .product-card .add-to-cart {
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s ease;
-        }
-        .product-card:hover .add-to-cart {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Xhobon - 数码科技产品商城</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.5.0/fonts/remixicon.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#ff6700',secondary:'#424242'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', 'Noto Sans SC', sans-serif;
+}
+.hero-gradient {
+background: linear-gradient(90deg, #ffffff 0%, rgba(255, 255, 255, 0.8) 40%, rgba(255, 255, 255, 0) 100%);
+}
+.nav-link {
+position: relative;
+}
+.nav-link::after {
+content: '';
+position: absolute;
+bottom: -2px;
+left: 0;
+width: 0;
+height: 2px;
+background-color: #ff6700;
+transition: width 0.3s;
+}
+.nav-link:hover::after {
+width: 100%;
+}
+.nav-link.active::after {
+width: 100%;
+}
+.search-input:focus {
+outline: none;
+}
+.language-selector {
+position: relative;
+}
+.language-options {
+display: none;
+position: absolute;
+top: 100%;
+right: 0;
+background-color: white;
+box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+border-radius: 8px;
+min-width: 120px;
+z-index: 10;
+}
+.language-selector:hover .language-options {
+display: block;
+}
+.category-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.flash-sale-timer {
+font-variant-numeric: tabular-nums;
+}
+.product-card {
+transition: all 0.3s ease;
+}
+.product-card:hover {
+transform: translateY(-5px);
+box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.product-card .add-to-cart {
+opacity: 0;
+transform: translateY(10px);
+transition: all 0.3s ease;
+}
+.product-card:hover .add-to-cart {
+opacity: 1;
+transform: translateY(0);
+}
+</style>
 </head>
 <body class="bg-gray-50">
-    <!-- 顶部导航 -->
-    <div class="bg-white shadow-sm">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-2 text-sm text-gray-600">
-                <div class="flex items-center space-x-4">
-                    <a href="#" class="hover:text-primary transition-colors">商家入驻</a>
-                    <a href="#" class="hover:text-primary transition-colors">企业采购</a>
-                    <a href="#" class="hover:text-primary transition-colors">帮助中心</a>
-                </div>
-                <div class="flex items-center space-x-6">
-                    <div class="language-selector">
-                        <button class="flex items-center space-x-1 hover:text-primary transition-colors">
-                            <span>中文</span>
-                            <div class="w-4 h-4 flex items-center justify-center">
-                                <i class="ri-arrow-down-s-line"></i>
-                            </div>
-                        </button>
-                        <div class="language-options">
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:text-primary">English</a>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 hover:text-primary">ภาษาไทย</a>
-                        </div>
-                    </div>
-                    <a href="#" class="hover:text-primary transition-colors">登录</a>
-                    <a href="#" class="hover:text-primary transition-colors">注册</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- 主导航 -->
-    <header class="bg-white shadow-md sticky top-0 z-30">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center py-4">
-                <div class="flex items-center">
-                    <a href="#" class="text-2xl font-['Pacifico'] text-primary mr-12">Xhobon</a>
-                    <nav class="hidden lg:flex space-x-8">
-                        <a href="#" class="nav-link active font-medium">首页</a>
-                        <a href="#" class="nav-link font-medium">手机</a>
-                        <a href="#" class="nav-link font-medium">电脑</a>
-                        <a href="#" class="nav-link font-medium">智能家居</a>
-                        <a href="#" class="nav-link font-medium">配件</a>
-                        <a href="#" class="nav-link font-medium">闪购</a>
-                        <a href="#" class="nav-link font-medium">新品</a>
-                    </nav>
-                </div>
-                <div class="flex items-center space-x-6">
-                    <div class="relative">
-                        <div class="flex items-center bg-gray-100 rounded-full px-4 py-2 w-64">
-                            <input type="text" placeholder="搜索商品" class="bg-transparent border-none w-full text-sm search-input">
-                            <div class="w-5 h-5 flex items-center justify-center text-gray-500">
-                                <i class="ri-search-line"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative">
-                        <i class="ri-user-line text-xl"></i>
-                    </div>
-                    <div class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative">
-                        <i class="ri-shopping-cart-line text-xl"></i>
-                        <span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Hero 区域 -->
-    <section class="relative overflow-hidden">
-        <div class="absolute inset-0 w-full h-full" style="background-image: url('https://readdy.ai/api/search-image?query=Modern%20minimalist%20digital%20electronics%20store%20hero%20image%20with%20smartphones%2C%20laptops%2C%20and%20smart%20gadgets%20on%20a%20clean%20white%20background%20with%20subtle%20orange%20accents.%20The%20left%20side%20has%20ample%20white%20space%20for%20text%2C%20while%20the%20right%20side%20showcases%20premium%20tech%20products.%20Professional%20product%20photography%20style%20with%20soft%20shadows%20and%20reflections.&width=1920&height=600&seq=1&orientation=landscape'); background-size: cover; background-position: center;"></div>
-        <div class="relative z-10 container mx-auto px-4 py-20">
-            <div class="hero-gradient max-w-2xl py-16 px-10 rounded-xl">
-                <h1 class="text-5xl font-bold mb-6 text-gray-900">科技改变生活，品质源于选择</h1>
-                <p class="text-xl text-gray-700 mb-8">探索 Xhobon 精选全球高品质数码产品，享受科技带来的便捷与乐趣</p>
-                <div class="flex space-x-4">
-                    <button class="bg-primary text-white px-8 py-3 font-medium !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">立即选购</button>
-                    <button class="bg-white text-primary border border-primary px-8 py-3 font-medium !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors">了解更多</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 分类导航 -->
-    <section class="py-12 bg-white">
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold text-center mb-10">热门分类</h2>
-            <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
-                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
-                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
-                        <i class="ri-smartphone-line text-primary text-2xl"></i>
-                    </div>
-                    <span class="font-medium">手机</span>
-                </a>
-                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
-                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
-                        <i class="ri-macbook-line text-primary text-2xl"></i>
-                    </div>
-                    <span class="font-medium">笔记本</span>
-                </a>
-                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
-                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
-                        <i class="ri-tablet-line text-primary text-2xl"></i>
-                    </div>
-                    <span class="font-medium">平板</span>
-                </a>
-                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
-                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
-                        <i class="ri-headphone-line text-primary text-2xl"></i>
-                    </div>
-                    <span class="font-medium">耳机</span>
-                </a>
-                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
-                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
-                        <i class="ri-tv-line text-primary text-2xl"></i>
-                    </div>
-                    <span class="font-medium">智能电视</span>
-                </a>
-                <a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
-                    <div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
-                        <i class="ri-home-wifi-line text-primary text-2xl"></i>
-                    </div>
-                    <span class="font-medium">智能家居</span>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- 闪购专区 -->
-    <section class="py-12 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold">限时闪购</h2>
-                <div class="flex items-center space-x-4">
-                    <div class="flash-sale-timer flex space-x-2">
-                        <div class="bg-primary text-white rounded px-2 py-1 text-sm">23</div>
-                        <span class="text-gray-500">:</span>
-                        <div class="bg-primary text-white rounded px-2 py-1 text-sm">45</div>
-                        <span class="text-gray-500">:</span>
-                        <div class="bg-primary text-white rounded px-2 py-1 text-sm">19</div>
-                    </div>
-                    <a href="#" class="text-primary hover:underline">查看全部</a>
-                </div>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
-                    <div class="relative">
-                        <span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 7.5 折</span>
-                        <img src="https://readdy.ai/api/search-image?query=Modern%20sleek%20smartphone%20with%20minimalist%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=2&orientation=squarish" alt="智能手机" class="w-full h-48 object-cover object-top">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-medium mb-2">X12 Pro 5G 智能手机</h3>
-                        <p class="text-sm text-gray-500 mb-2">8GB+256GB 曜石黑</p>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-primary font-bold">¥3,299</span>
-                                <span class="text-gray-400 line-through text-sm ml-2">¥4,399</span>
-                            </div>
-                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
-                                <i class="ri-add-line"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
-                    <div class="relative">
-                        <span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 8 折</span>
-                        <img src="https://readdy.ai/api/search-image?query=Modern%20wireless%20earbuds%20with%20charging%20case%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=3&orientation=squarish" alt="无线耳机" class="w-full h-48 object-cover object-top">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-medium mb-2">AirBuds Pro 无线耳机</h3>
-                        <p class="text-sm text-gray-500 mb-2">主动降噪 40小时续航</p>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-primary font-bold">¥799</span>
-                                <span class="text-gray-400 line-through text-sm ml-2">¥999</span>
-                            </div>
-                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
-                                <i class="ri-add-line"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
-                    <div class="relative">
-                        <span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 7 折</span>
-                        <img src="https://readdy.ai/api/search-image?query=Modern%20sleek%20smartwatch%20with%20silicone%20band%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=4&orientation=squarish" alt="智能手表" class="w-full h-48 object-cover object-top">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-medium mb-2">SmartWatch X 智能手表</h3>
-                        <p class="text-sm text-gray-500 mb-2">心率监测 运动追踪</p>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-primary font-bold">¥699</span>
-                                <span class="text-gray-400 line-through text-sm ml-2">¥999</span>
-                            </div>
-                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
-                                <i class="ri-add-line"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
-                    <div class="relative">
-                        <span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 8.5 折</span>
-                        <img src="https://readdy.ai/api/search-image?query=Modern%20portable%20bluetooth%20speaker%20with%20minimalist%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=5&orientation=squarish" alt="蓝牙音箱" class="w-full h-48 object-cover object-top">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-medium mb-2">SoundBox Mini 蓝牙音箱</h3>
-                        <p class="text-sm text-gray-500 mb-2">防水 24小时续航</p>
-                        <div class="flex justify-between items-center">
-                            <div>
-                                <span class="text-primary font-bold">¥299</span>
-                                <span class="text-gray-400 line-through text-sm ml-2">¥349</span>
-                            </div>
-                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
-                                <i class="ri-add-line"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 新品首发 -->
-    <section class="py-12 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold">新品首发</h2>
-                <a href="#" class="text-primary hover:underline">查看全部</a>
-            </div>
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm flex flex-col md:flex-row">
-                    <div class="md:w-1/2 p-8 flex flex-col justify-center">
-                        <span class="inline-block bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm mb-4">预售中</span>
-                        <h3 class="text-2xl font-bold mb-3">UltraBook Pro 14</h3>
-                        <p class="text-gray-600 mb-4">全新一代高性能轻薄笔记本，搭载最新处理器，16GB 内存，512GB 高速固态硬盘</p>
-                        <div class="mb-4">
-                            <span class="text-primary font-bold text-xl">¥6,999</span>
-                            <span class="text-sm text-gray-500 ml-2">预售享 8.8 折</span>
-                        </div>
-                        <button class="bg-primary text-white px-6 py-2 rounded-full !rounded-button whitespace-nowrap self-start hover:bg-opacity-90 transition-colors">立即预约</button>
-                    </div>
-                    <div class="md:w-1/2">
-                        <img src="https://readdy.ai/api/search-image?query=Modern%20sleek%20laptop%20with%20minimalist%20design%20on%20light%20gray%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=500&height=400&seq=6&orientation=landscape" alt="UltraBook Pro 14" class="w-full h-full object-cover object-top">
-                    </div>
-                </div>
-                <div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm flex flex-col md:flex-row">
-                    <div class="md:w-1/2 p-8 flex flex-col justify-center">
-                        <span class="inline-block bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm mb-4">新品上市</span>
-                        <h3 class="text-2xl font-bold mb-3">智能家居套装</h3>
-                        <p class="text-gray-600 mb-4">一键控制全屋智能设备，包含智能音箱、智能灯泡、智能插座和门窗传感器</p>
-                        <div class="mb-4">
-                            <span class="text-primary font-bold text-xl">¥1,299</span>
-                            <span class="text-sm text-gray-500 ml-2">套装立省 ¥300</span>
-                        </div>
-                        <button class="bg-primary text-white px-6 py-2 rounded-full !rounded-button whitespace-nowrap self-start hover:bg-opacity-90 transition-colors">立即购买</button>
-                    </div>
-                    <div class="md:w-1/2">
-                        <img src="https://readdy.ai/api/search-image?query=Modern%20smart%20home%20devices%20collection%20including%20smart%20speaker%2C%20smart%20bulb%2C%20and%20sensors%20on%20light%20gray%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=500&height=400&seq=7&orientation=landscape" alt="智能家居套装" class="w-full h-full object-cover object-top">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 热销榜单 -->
-    <section class="py-12 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold">热销榜单</h2>
-                <a href="#" class="text-primary hover:underline">查看全部</a>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
-                    <div class="relative">
-                        <span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
-                        <img src="https://readdy.ai/api/search-image?query=Modern%20tablet%20device%20with%20sleek%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=8&orientation=squarish" alt="平板电脑" class="w-full h-48 object-cover object-top">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-medium mb-2">TabPro 10.5 平板电脑</h3>
-                        <p class="text-sm text-gray-500 mb-2">2K 高清屏幕 8GB+128GB</p>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-yellow-400">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-half-fill"></i>
-                            </div>
-                            <span class="text-xs text-gray-500 ml-1">(1,254)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-primary font-bold">¥2,499</span>
-                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
-                                <i class="ri-add-line"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
-                    <div class="relative">
-                        <span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
-                        <img src="https://readdy.ai/api/search-image?query=Modern%20gaming%20headphones%20with%20RGB%20lighting%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=9&orientation=squarish" alt="游戏耳机" class="w-full h-48 object-cover object-top">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-medium mb-2">GameAudio Pro 游戏耳机</h3>
-                        <p class="text-sm text-gray-500 mb-2">7.1 环绕声 RGB 灯效</p>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-yellow-400">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                            </div>
-                            <span class="text-xs text-gray-500 ml-1">(876)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-primary font-bold">¥499</span>
-                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
-                                <i class="ri-add-line"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
-                    <div class="relative">
-                        <span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
-                        <img src="https://readdy.ai/api/search-image?query=Modern%20power%20bank%20with%20minimalist%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=10&orientation=squarish" alt="移动电源" class="w-full h-48 object-cover object-top">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-medium mb-2">PowerMax 20000mAh 移动电源</h3>
-                        <p class="text-sm text-gray-500 mb-2">65W 快充 双向快充</p>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-yellow-400">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-line"></i>
-                            </div>
-                            <span class="text-xs text-gray-500 ml-1">(1,032)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-primary font-bold">¥199</span>
-                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
-                                <i class="ri-add-line"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
-                    <div class="relative">
-                        <span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
-                        <img src="https://readdy.ai/api/search-image?query=Modern%20smart%20robot%20vacuum%20cleaner%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=11&orientation=squarish" alt="扫地机器人" class="w-full h-48 object-cover object-top">
-                    </div>
-                    <div class="p-4">
-                        <h3 class="font-medium mb-2">CleanBot Pro 扫地机器人</h3>
-                        <p class="text-sm text-gray-500 mb-2">激光导航 自动回充</p>
-                        <div class="flex items-center mb-2">
-                            <div class="flex text-yellow-400">
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-fill"></i>
-                                <i class="ri-star-half-fill"></i>
-                            </div>
-                            <span class="text-xs text-gray-500 ml-1">(653)</span>
-                        </div>
-                        <div class="flex justify-between items-center">
-                            <span class="text-primary font-bold">¥1,799</span>
-                            <button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
-                                <i class="ri-add-line"></i>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 会员专享 -->
-    <section class="py-12 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="flex justify-between items-center mb-8">
-                <h2 class="text-2xl font-bold">会员专享</h2>
-                <a href="#" class="text-primary hover:underline">了解会员权益</a>
-            </div>
-            <div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg overflow-hidden shadow-lg">
-                <div class="flex flex-col lg:flex-row">
-                    <div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
-                        <div class="flex items-center mb-6">
-                            <div class="w-10 h-10 flex items-center justify-center bg-primary rounded-full mr-3">
-                                <i class="ri-vip-crown-fill text-white"></i>
-                            </div>
-                            <h3 class="text-2xl font-bold text-white">Xhobon 会员</h3>
-                        </div>
-                        <p class="text-gray-300 mb-6">加入 Xhobon 会员，享受专属优惠、积分加速、生日礼遇等多重权益</p>
-                        <ul class="space-y-3 mb-8">
-                            <li class="flex items-center text-gray-300">
-                                <div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
-                                    <i class="ri-check-line"></i>
-                                </div>
-                                <span>会员专享价格，最高可省 15%</span>
-                            </li>
-                            <li class="flex items-center text-gray-300">
-                                <div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
-                                    <i class="ri-check-line"></i>
-                                </div>
-                                <span>购物积分 2 倍加速</span>
-                            </li>
-                            <li class="flex items-center text-gray-300">
-                                <div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
-                                    <i class="ri-check-line"></i>
-                                </div>
-                                <span>生日当月送 500 积分</span>
-                            </li>
-                            <li class="flex items-center text-gray-300">
-                                <div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
-                                    <i class="ri-check-line"></i>
-                                </div>
-                                <span>专属客服通道</span>
-                            </li>
-                        </ul>
-                        <button class="bg-primary text-white px-8 py-3 rounded-full !rounded-button whitespace-nowrap self-start hover:bg-opacity-90 transition-colors">立即加入</button>
-                    </div>
-                    <div class="lg:w-1/2 relative">
-                        <img src="https://readdy.ai/api/search-image?query=Premium%20digital%20electronics%20collection%20with%20smartphones%2C%20laptops%2C%20headphones%2C%20and%20smartwatches%20arranged%20elegantly%20on%20dark%20background%20with%20gold%20accents%2C%20high-end%20product%20photography%20with%20dramatic%20lighting%2C%20luxury%20tech%20products%20display&width=600&height=500&seq=12&orientation=landscape" alt="会员专享" class="w-full h-full object-cover object-top">
-                        <div class="absolute bottom-6 right-6 bg-primary bg-opacity-90 text-white px-4 py-2 rounded-lg">
-                            <p class="font-bold">会员专享积分兑换</p>
-                            <p class="text-sm">低至 7 折</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 品牌推荐 -->
-    <section class="py-12 bg-gray-50">
-        <div class="container mx-auto px-4">
-            <h2 class="text-2xl font-bold text-center mb-10">品牌推荐</h2>
-            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
-                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
-                    <div class="flex flex-col items-center">
-                        <div class="w-12 h-12 flex items-center justify-center mb-2">
-                            <i class="ri-apple-fill text-3xl text-gray-800"></i>
-                        </div>
-                        <span class="text-sm font-medium">Apple</span>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
-                    <div class="flex flex-col items-center">
-                        <div class="w-12 h-12 flex items-center justify-center mb-2">
-                            <i class="ri-microsoft-fill text-3xl text-gray-800"></i>
-                        </div>
-                        <span class="text-sm font-medium">Microsoft</span>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
-                    <div class="flex flex-col items-center">
-                        <div class="w-12 h-12 flex items-center justify-center mb-2">
-                            <i class="ri-google-fill text-3xl text-gray-800"></i>
-                        </div>
-                        <span class="text-sm font-medium">Google</span>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
-                    <div class="flex flex-col items-center">
-                        <div class="w-12 h-12 flex items-center justify-center mb-2">
-                            <i class="ri-sony-fill text-3xl text-gray-800"></i>
-                        </div>
-                        <span class="text-sm font-medium">Sony</span>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
-                    <div class="flex flex-col items-center">
-                        <div class="w-12 h-12 flex items-center justify-center mb-2">
-                            <i class="ri-samsung-fill text-3xl text-gray-800"></i>
-                        </div>
-                        <span class="text-sm font-medium">Samsung</span>
-                    </div>
-                </div>
-                <div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
-                    <div class="flex flex-col items-center">
-                        <div class="w-12 h-12 flex items-center justify-center mb-2">
-                            <i class="ri-amazon-fill text-3xl text-gray-800"></i>
-                        </div>
-                        <span class="text-sm font-medium">Amazon</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 订阅区域 -->
-    <section class="py-12 bg-white">
-        <div class="container mx-auto px-4">
-            <div class="max-w-3xl mx-auto text-center">
-                <h2 class="text-2xl font-bold mb-4">订阅我们</h2>
-                <p class="text-gray-600 mb-8">订阅 Xhobon 电子报，抢先获取新品资讯和独家优惠</p>
-                <div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-                    <input type="email" placeholder="请输入您的邮箱" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:outline-none">
-                    <button class="bg-primary text-white px-6 py-3 rounded-lg !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">立即订阅</button>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 页脚 -->
-    <footer class="bg-gray-900 text-white pt-16 pb-8">
-        <div class="container mx-auto px-4">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-                <div>
-                    <h3 class="text-xl font-['Pacifico'] mb-6">Xhobon</h3>
-                    <p class="text-gray-400 mb-6">专注于提供高品质数码产品的电商平台，致力于为用户带来更好的科技生活体验</p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
-                            <i class="ri-facebook-fill"></i>
-                        </a>
-                        <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
-                            <i class="ri-twitter-x-fill"></i>
-                        </a>
-                        <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
-                            <i class="ri-instagram-fill"></i>
-                        </a>
-                        <a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
-                            <i class="ri-wechat-fill"></i>
-                        </a>
-                    </div>
-                </div>
-                <div>
-                    <h4 class="text-lg font-medium mb-4">购物指南</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">新用户注册</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">购物流程</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">支付方式</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">会员权益</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-medium mb-4">服务支持</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">售后政策</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">物流配送</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">退换货说明</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">保修与维修</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">联系客服</a></li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 class="text-lg font-medium mb-4">关于我们</h4>
-                    <ul class="space-y-2">
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">公司介绍</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">招商合作</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">加入我们</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">隐私政策</a></li>
-                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">用户协议</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="border-t border-gray-800 pt-8">
-                <div class="flex flex-col md:flex-row justify-between items-center">
-                    <div class="mb-4 md:mb-0">
-                        <p class="text-gray-400 text-sm">© 2025 Xhobon.com 版权所有</p>
-                    </div>
-                    <div class="flex items-center space-x-4">
-                        <div class="flex items-center text-gray-400">
-                            <div class="w-6 h-6 flex items-center justify-center mr-1">
-                                <i class="ri-alipay-fill text-xl"></i>
-                            </div>
-                            <span class="text-sm">支付宝</span>
-                        </div>
-                        <div class="flex items-center text-gray-400">
-                            <div class="w-6 h-6 flex items-center justify-center mr-1">
-                                <i class="ri-wechat-pay-fill text-xl"></i>
-                            </div>
-                            <span class="text-sm">微信支付</span>
-                        </div>
-                        <div class="flex items-center text-gray-400">
-                            <div class="w-6 h-6 flex items-center justify-center mr-1">
-                                <i class="ri-paypal-fill text-xl"></i>
-                            </div>
-                            <span class="text-sm">PayPal</span>
-                        </div>
-                        <div class="flex items-center text-gray-400">
-                            <div class="w-6 h-6 flex items-center justify-center mr-1">
-                                <i class="ri-visa-fill text-xl"></i>
-                            </div>
-                            <span class="text-sm">Visa</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // 闪购倒计时
-            function updateTimer() {
-                const now = new Date();
-                const hours = 23 - now.getHours();
-                const minutes = 59 - now.getMinutes();
-                const seconds = 59 - now.getSeconds();
-                
-                const timerElements = document.querySelectorAll('.flash-sale-timer div');
-                if (timerElements.length >= 3) {
-                    timerElements[0].textContent = hours < 10 ? '0' + hours : hours;
-                    timerElements[1].textContent = minutes < 10 ? '0' + minutes : minutes;
-                    timerElements[2].textContent = seconds < 10 ? '0' + seconds : seconds;
-                }
-            }
-            
-            updateTimer();
-            setInterval(updateTimer, 1000);
-        });
-    </script>
+<!-- 顶部导航 -->
+<div class="bg-white shadow-sm">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center py-2 text-sm text-gray-600">
+<div class="flex items-center space-x-4">
+<a href="#" class="hover:text-primary transition-colors">商家入驻</a>
+<a href="#" class="hover:text-primary transition-colors">企业采购</a>
+<a href="#" class="hover:text-primary transition-colors">帮助中心</a>
+</div>
+<div class="flex items-center space-x-6">
+<div class="language-selector relative group">
+<button class="flex items-center space-x-1 hover:text-primary transition-colors">
+<span class="current-lang">中文</span>
+<div class="w-4 h-4 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</button>
+<div class="language-options hidden group-hover:block absolute top-full right-0 mt-1 bg-white rounded-lg shadow-lg py-1 min-w-[120px] z-50">
+<button class="lang-option w-full text-left px-4 py-2 hover:bg-gray-100 hover:text-primary transition-colors" data-lang="zh">
+<span class="flex items-center">
+<i class="ri-check-line mr-2 opacity-0 lang-check"></i>
+中文 (Chinese)
+</span>
+</button>
+<button class="lang-option w-full text-left px-4 py-2 hover:bg-gray-100 hover:text-primary transition-colors" data-lang="en">
+<span class="flex items-center">
+<i class="ri-check-line mr-2 opacity-0 lang-check"></i>
+English (英文)
+</span>
+</button>
+<button class="lang-option w-full text-left px-4 py-2 hover:bg-gray-100 hover:text-primary transition-colors" data-lang="id">
+<span class="flex items-center">
+<i class="ri-check-line mr-2 opacity-0 lang-check"></i>
+Bahasa Indonesia (印尼语)
+</span>
+</button>
+</div>
+</div>
+<a href="#" class="hover:text-primary transition-colors">登录</a>
+<a href="#" class="hover:text-primary transition-colors">注册</a>
+</div>
+</div>
+</div>
+</div>
+<!-- 主导航 -->
+<header class="bg-white shadow-md sticky top-0 z-30">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center py-4">
+<div class="flex items-center">
+<a href="#" class="text-2xl font-['Pacifico'] text-primary mr-12">Xhobon</a>
+<nav class="hidden lg:flex space-x-8">
+<a href="#" class="nav-link active font-medium">首页</a>
+<a href="#" class="nav-link font-medium">手机</a>
+<a href="#" class="nav-link font-medium">电脑</a>
+<a href="#" class="nav-link font-medium">智能家居</a>
+<a href="#" class="nav-link font-medium">配件</a>
+<a href="#" class="nav-link font-medium">闪购</a>
+<a href="#" class="nav-link font-medium">新品</a>
+</nav>
+</div>
+<div class="flex items-center space-x-6">
+<div class="relative">
+<div class="flex items-center bg-gray-100 rounded-full px-4 py-2 w-64">
+<input type="text" placeholder="搜索商品" class="bg-transparent border-none w-full text-sm search-input">
+<div class="w-5 h-5 flex items-center justify-center text-gray-500">
+<i class="ri-search-line"></i>
+</div>
+</div>
+</div>
+<div class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative">
+<i class="ri-user-line text-xl"></i>
+</div>
+<div class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-gray-100 transition-colors relative">
+<i class="ri-shopping-cart-line text-xl"></i>
+<span class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">3</span>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- Hero 区域 -->
+<section class="relative overflow-hidden">
+<div class="absolute inset-0 w-full h-full" style="background-image: url('https://readdy.ai/api/search-image?query=Modern%20minimalist%20digital%20electronics%20store%20hero%20image%20with%20smartphones%2C%20laptops%2C%20and%20smart%20gadgets%20on%20a%20clean%20white%20background%20with%20subtle%20orange%20accents.%20The%20left%20side%20has%20ample%20white%20space%20for%20text%2C%20while%20the%20right%20side%20showcases%20premium%20tech%20products.%20Professional%20product%20photography%20style%20with%20soft%20shadows%20and%20reflections.&width=1920&height=600&seq=1&orientation=landscape'); background-size: cover; background-position: center;"></div>
+<div class="relative z-10 container mx-auto px-4 py-20">
+<div class="hero-gradient max-w-2xl py-16 px-10 rounded-xl">
+<h1 class="text-5xl font-bold mb-6 text-gray-900">科技改变生活，品质源于选择</h1>
+<p class="text-xl text-gray-700 mb-8">探索 Xhobon 精选全球高品质数码产品，享受科技带来的便捷与乐趣</p>
+<div class="flex space-x-4">
+<button class="bg-primary text-white px-8 py-3 font-medium !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">立即选购</button>
+<button class="bg-white text-primary border border-primary px-8 py-3 font-medium !rounded-button whitespace-nowrap hover:bg-gray-50 transition-colors">了解更多</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 分类导航 -->
+<section class="py-12 bg-white">
+<div class="container mx-auto px-4">
+<h2 class="text-2xl font-bold text-center mb-10">热门分类</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+<a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+<i class="ri-smartphone-line text-primary text-2xl"></i>
+</div>
+<span class="font-medium">手机</span>
+</a>
+<a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+<i class="ri-macbook-line text-primary text-2xl"></i>
+</div>
+<span class="font-medium">笔记本</span>
+</a>
+<a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+<i class="ri-tablet-line text-primary text-2xl"></i>
+</div>
+<span class="font-medium">平板</span>
+</a>
+<a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+<i class="ri-headphone-line text-primary text-2xl"></i>
+</div>
+<span class="font-medium">耳机</span>
+</a>
+<a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+<i class="ri-tv-line text-primary text-2xl"></i>
+</div>
+<span class="font-medium">智能电视</span>
+</a>
+<a href="#" class="category-card bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex flex-col items-center">
+<div class="w-16 h-16 flex items-center justify-center bg-gray-100 rounded-full mb-4">
+<i class="ri-home-wifi-line text-primary text-2xl"></i>
+</div>
+<span class="font-medium">智能家居</span>
+</a>
+</div>
+</div>
+</section>
+<!-- 闪购专区 -->
+<section class="py-12 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold">限时闪购</h2>
+<div class="flex items-center space-x-4">
+<div class="flash-sale-timer flex space-x-2">
+<div class="bg-primary text-white rounded px-2 py-1 text-sm">23</div>
+<span class="text-gray-500">:</span>
+<div class="bg-primary text-white rounded px-2 py-1 text-sm">45</div>
+<span class="text-gray-500">:</span>
+<div class="bg-primary text-white rounded px-2 py-1 text-sm">19</div>
+</div>
+<a href="#" class="text-primary hover:underline">查看全部</a>
+</div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+<div class="relative">
+<span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 7.5 折</span>
+<img src="https://readdy.ai/api/search-image?query=Modern%20sleek%20smartphone%20with%20minimalist%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=2&orientation=squarish" alt="智能手机" class="w-full h-48 object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-medium mb-2">X12 Pro 5G 智能手机</h3>
+<p class="text-sm text-gray-500 mb-2">8GB+256GB 曜石黑</p>
+<div class="flex justify-between items-center">
+<div>
+<span class="text-primary font-bold">¥3,299</span>
+<span class="text-gray-400 line-through text-sm ml-2">¥4,399</span>
+</div>
+<button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+<div class="relative">
+<span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 8 折</span>
+<img src="https://readdy.ai/api/search-image?query=Modern%20wireless%20earbuds%20with%20charging%20case%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=3&orientation=squarish" alt="无线耳机" class="w-full h-48 object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-medium mb-2">AirBuds Pro 无线耳机</h3>
+<p class="text-sm text-gray-500 mb-2">主动降噪 40小时续航</p>
+<div class="flex justify-between items-center">
+<div>
+<span class="text-primary font-bold">¥799</span>
+<span class="text-gray-400 line-through text-sm ml-2">¥999</span>
+</div>
+<button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+<div class="relative">
+<span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 7 折</span>
+<img src="https://readdy.ai/api/search-image?query=Modern%20sleek%20smartwatch%20with%20silicone%20band%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=4&orientation=squarish" alt="智能手表" class="w-full h-48 object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-medium mb-2">SmartWatch X 智能手表</h3>
+<p class="text-sm text-gray-500 mb-2">心率监测 运动追踪</p>
+<div class="flex justify-between items-center">
+<div>
+<span class="text-primary font-bold">¥699</span>
+<span class="text-gray-400 line-through text-sm ml-2">¥999</span>
+</div>
+<button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+<div class="relative">
+<span class="absolute top-2 left-2 bg-primary text-white text-xs px-2 py-1 rounded">限时 8.5 折</span>
+<img src="https://readdy.ai/api/search-image?query=Modern%20portable%20bluetooth%20speaker%20with%20minimalist%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=5&orientation=squarish" alt="蓝牙音箱" class="w-full h-48 object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-medium mb-2">SoundBox Mini 蓝牙音箱</h3>
+<p class="text-sm text-gray-500 mb-2">防水 24小时续航</p>
+<div class="flex justify-between items-center">
+<div>
+<span class="text-primary font-bold">¥299</span>
+<span class="text-gray-400 line-through text-sm ml-2">¥349</span>
+</div>
+<button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 新品首发 -->
+<section class="py-12 bg-white">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold">新品首发</h2>
+<a href="#" class="text-primary hover:underline">查看全部</a>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm flex flex-col md:flex-row">
+<div class="md:w-1/2 p-8 flex flex-col justify-center">
+<span class="inline-block bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm mb-4">预售中</span>
+<h3 class="text-2xl font-bold mb-3">UltraBook Pro 14</h3>
+<p class="text-gray-600 mb-4">全新一代高性能轻薄笔记本，搭载最新处理器，16GB 内存，512GB 高速固态硬盘</p>
+<div class="mb-4">
+<span class="text-primary font-bold text-xl">¥6,999</span>
+<span class="text-sm text-gray-500 ml-2">预售享 8.8 折</span>
+</div>
+<button class="bg-primary text-white px-6 py-2 rounded-full !rounded-button whitespace-nowrap self-start hover:bg-opacity-90 transition-colors">立即预约</button>
+</div>
+<div class="md:w-1/2">
+<img src="https://readdy.ai/api/search-image?query=Modern%20sleek%20laptop%20with%20minimalist%20design%20on%20light%20gray%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=500&height=400&seq=6&orientation=landscape" alt="UltraBook Pro 14" class="w-full h-full object-cover object-top">
+</div>
+</div>
+<div class="bg-gray-50 rounded-lg overflow-hidden shadow-sm flex flex-col md:flex-row">
+<div class="md:w-1/2 p-8 flex flex-col justify-center">
+<span class="inline-block bg-primary bg-opacity-10 text-primary px-3 py-1 rounded-full text-sm mb-4">新品上市</span>
+<h3 class="text-2xl font-bold mb-3">智能家居套装</h3>
+<p class="text-gray-600 mb-4">一键控制全屋智能设备，包含智能音箱、智能灯泡、智能插座和门窗传感器</p>
+<div class="mb-4">
+<span class="text-primary font-bold text-xl">¥1,299</span>
+<span class="text-sm text-gray-500 ml-2">套装立省 ¥300</span>
+</div>
+<button class="bg-primary text-white px-6 py-2 rounded-full !rounded-button whitespace-nowrap self-start hover:bg-opacity-90 transition-colors">立即购买</button>
+</div>
+<div class="md:w-1/2">
+<img src="https://readdy.ai/api/search-image?query=Modern%20smart%20home%20devices%20collection%20including%20smart%20speaker%2C%20smart%20bulb%2C%20and%20sensors%20on%20light%20gray%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=500&height=400&seq=7&orientation=landscape" alt="智能家居套装" class="w-full h-full object-cover object-top">
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 热销榜单 -->
+<section class="py-12 bg-gray-50">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold">热销榜单</h2>
+<a href="#" class="text-primary hover:underline">查看全部</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+<div class="relative">
+<span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
+<img src="https://readdy.ai/api/search-image?query=Modern%20tablet%20device%20with%20sleek%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=8&orientation=squarish" alt="平板电脑" class="w-full h-48 object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-medium mb-2">TabPro 10.5 平板电脑</h3>
+<p class="text-sm text-gray-500 mb-2">2K 高清屏幕 8GB+128GB</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(1,254)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold">¥2,499</span>
+<button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+<div class="relative">
+<span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
+<img src="https://readdy.ai/api/search-image?query=Modern%20gaming%20headphones%20with%20RGB%20lighting%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=9&orientation=squarish" alt="游戏耳机" class="w-full h-48 object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-medium mb-2">GameAudio Pro 游戏耳机</h3>
+<p class="text-sm text-gray-500 mb-2">7.1 环绕声 RGB 灯效</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(876)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold">¥499</span>
+<button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+<div class="relative">
+<span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
+<img src="https://readdy.ai/api/search-image?query=Modern%20power%20bank%20with%20minimalist%20design%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=10&orientation=squarish" alt="移动电源" class="w-full h-48 object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-medium mb-2">PowerMax 20000mAh 移动电源</h3>
+<p class="text-sm text-gray-500 mb-2">65W 快充 双向快充</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-line"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(1,032)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold">¥199</span>
+<button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+</div>
+<div class="product-card bg-white rounded-lg overflow-hidden shadow-sm">
+<div class="relative">
+<span class="absolute top-2 left-2 bg-gray-800 text-white text-xs px-2 py-1 rounded">爆款</span>
+<img src="https://readdy.ai/api/search-image?query=Modern%20smart%20robot%20vacuum%20cleaner%20on%20white%20background%2C%20high%20resolution%20product%20photography%20with%20soft%20shadows%20and%20reflections%2C%20clean%20and%20professional%20e-commerce%20style%20image&width=400&height=400&seq=11&orientation=squarish" alt="扫地机器人" class="w-full h-48 object-cover object-top">
+</div>
+<div class="p-4">
+<h3 class="font-medium mb-2">CleanBot Pro 扫地机器人</h3>
+<p class="text-sm text-gray-500 mb-2">激光导航 自动回充</p>
+<div class="flex items-center mb-2">
+<div class="flex text-yellow-400">
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-fill"></i>
+<i class="ri-star-half-fill"></i>
+</div>
+<span class="text-xs text-gray-500 ml-1">(653)</span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-primary font-bold">¥1,799</span>
+<button class="add-to-cart w-8 h-8 flex items-center justify-center bg-primary text-white rounded-full !rounded-button whitespace-nowrap">
+<i class="ri-add-line"></i>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 会员专享 -->
+<section class="py-12 bg-white">
+<div class="container mx-auto px-4">
+<div class="flex justify-between items-center mb-8">
+<h2 class="text-2xl font-bold">会员专享</h2>
+<a href="#" class="text-primary hover:underline">了解会员权益</a>
+</div>
+<div class="bg-gradient-to-r from-gray-900 to-gray-800 rounded-lg overflow-hidden shadow-lg">
+<div class="flex flex-col lg:flex-row">
+<div class="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+<div class="flex items-center mb-6">
+<div class="w-10 h-10 flex items-center justify-center bg-primary rounded-full mr-3">
+<i class="ri-vip-crown-fill text-white"></i>
+</div>
+<h3 class="text-2xl font-bold text-white">Xhobon 会员</h3>
+</div>
+<p class="text-gray-300 mb-6">加入 Xhobon 会员，享受专属优惠、积分加速、生日礼遇等多重权益</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center text-gray-300">
+<div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+<i class="ri-check-line"></i>
+</div>
+<span>会员专享价格，最高可省 15%</span>
+</li>
+<li class="flex items-center text-gray-300">
+<div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+<i class="ri-check-line"></i>
+</div>
+<span>购物积分 2 倍加速</span>
+</li>
+<li class="flex items-center text-gray-300">
+<div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+<i class="ri-check-line"></i>
+</div>
+<span>生日当月送 500 积分</span>
+</li>
+<li class="flex items-center text-gray-300">
+<div class="w-5 h-5 flex items-center justify-center mr-2 text-primary">
+<i class="ri-check-line"></i>
+</div>
+<span>专属客服通道</span>
+</li>
+</ul>
+<button class="bg-primary text-white px-8 py-3 rounded-full !rounded-button whitespace-nowrap self-start hover:bg-opacity-90 transition-colors">立即加入</button>
+</div>
+<div class="lg:w-1/2 relative">
+<img src="https://readdy.ai/api/search-image?query=Premium%20digital%20electronics%20collection%20with%20smartphones%2C%20laptops%2C%20headphones%2C%20and%20smartwatches%20arranged%20elegantly%20on%20dark%20background%20with%20gold%20accents%2C%20high-end%20product%20photography%20with%20dramatic%20lighting%2C%20luxury%20tech%20products%20display&width=600&height=500&seq=12&orientation=landscape" alt="会员专享" class="w-full h-full object-cover object-top">
+<div class="absolute bottom-6 right-6 bg-primary bg-opacity-90 text-white px-4 py-2 rounded-lg">
+<p class="font-bold">会员专享积分兑换</p>
+<p class="text-sm">低至 7 折</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 品牌推荐 -->
+<section class="py-12 bg-gray-50">
+<div class="container mx-auto px-4">
+<h2 class="text-2xl font-bold text-center mb-10">品牌推荐</h2>
+<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+<div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-apple-fill text-3xl text-gray-800"></i>
+</div>
+<span class="text-sm font-medium">Apple</span>
+</div>
+</div>
+<div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-microsoft-fill text-3xl text-gray-800"></i>
+</div>
+<span class="text-sm font-medium">Microsoft</span>
+</div>
+</div>
+<div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-google-fill text-3xl text-gray-800"></i>
+</div>
+<span class="text-sm font-medium">Google</span>
+</div>
+</div>
+<div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-sony-fill text-3xl text-gray-800"></i>
+</div>
+<span class="text-sm font-medium">Sony</span>
+</div>
+</div>
+<div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-samsung-fill text-3xl text-gray-800"></i>
+</div>
+<span class="text-sm font-medium">Samsung</span>
+</div>
+</div>
+<div class="bg-white rounded-lg p-6 shadow-sm hover:shadow-md transition-all flex items-center justify-center">
+<div class="flex flex-col items-center">
+<div class="w-12 h-12 flex items-center justify-center mb-2">
+<i class="ri-amazon-fill text-3xl text-gray-800"></i>
+</div>
+<span class="text-sm font-medium">Amazon</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 订阅区域 -->
+<section class="py-12 bg-white">
+<div class="container mx-auto px-4">
+<div class="max-w-3xl mx-auto text-center">
+<h2 class="text-2xl font-bold mb-4">订阅我们</h2>
+<p class="text-gray-600 mb-8">订阅 Xhobon 电子报，抢先获取新品资讯和独家优惠</p>
+<div class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+<input type="email" placeholder="请输入您的邮箱" class="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:border-primary focus:ring-2 focus:ring-primary focus:ring-opacity-20 focus:outline-none">
+<button class="bg-primary text-white px-6 py-3 rounded-lg !rounded-button whitespace-nowrap hover:bg-opacity-90 transition-colors">立即订阅</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 页脚 -->
+<footer class="bg-gray-900 text-white pt-16 pb-8">
+<div class="container mx-auto px-4">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+<div>
+<h3 class="text-xl font-['Pacifico'] mb-6">Xhobon</h3>
+<p class="text-gray-400 mb-6">专注于提供高品质数码产品的电商平台，致力于为用户带来更好的科技生活体验</p>
+<div class="flex space-x-4">
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-twitter-x-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-instagram-fill"></i>
+</a>
+<a href="#" class="w-8 h-8 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary transition-colors">
+<i class="ri-wechat-fill"></i>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-medium mb-4">购物指南</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">新用户注册</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">购物流程</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">支付方式</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">常见问题</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">会员权益</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-medium mb-4">服务支持</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">售后政策</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">物流配送</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">退换货说明</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">保修与维修</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">联系客服</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-medium mb-4">关于我们</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">公司介绍</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">招商合作</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">加入我们</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">隐私政策</a></li>
+<li><a href="#" class="text-gray-400 hover:text-white transition-colors">用户协议</a></li>
+</ul>
+</div>
+</div>
+<div class="border-t border-gray-800 pt-8">
+<div class="flex flex-col md:flex-row justify-between items-center">
+<div class="mb-4 md:mb-0">
+<p class="text-gray-400 text-sm">© 2025 Xhobon.com 版权所有</p>
+</div>
+<div class="flex items-center space-x-4">
+<div class="flex items-center text-gray-400">
+<div class="w-6 h-6 flex items-center justify-center mr-1">
+<i class="ri-alipay-fill text-xl"></i>
+</div>
+<span class="text-sm">支付宝</span>
+</div>
+<div class="flex items-center text-gray-400">
+<div class="w-6 h-6 flex items-center justify-center mr-1">
+<i class="ri-wechat-pay-fill text-xl"></i>
+</div>
+<span class="text-sm">微信支付</span>
+</div>
+<div class="flex items-center text-gray-400">
+<div class="w-6 h-6 flex items-center justify-center mr-1">
+<i class="ri-paypal-fill text-xl"></i>
+</div>
+<span class="text-sm">PayPal</span>
+</div>
+<div class="flex items-center text-gray-400">
+<div class="w-6 h-6 flex items-center justify-center mr-1">
+<i class="ri-visa-fill text-xl"></i>
+</div>
+<span class="text-sm">Visa</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</footer>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+// 语言切换功能
+const langSelector = document.querySelector('.language-selector');
+const currentLang = langSelector.querySelector('.current-lang');
+const langOptions = langSelector.querySelectorAll('.lang-option');
+// 初始化选中状态
+const initLang = 'zh';
+updateLanguageSelection(initLang);
+langOptions.forEach(option => {
+option.addEventListener('click', function() {
+const lang = this.dataset.lang;
+updateLanguageSelection(lang);
+});
+});
+function updateLanguageSelection(selectedLang) {
+// 更新当前显示的语言
+const langMap = {
+'zh': '中文',
+'en': 'English',
+'id': 'Bahasa Indonesia'
+};
+currentLang.textContent = langMap[selectedLang];
+// 更新选中状态
+langOptions.forEach(option => {
+const check = option.querySelector('.lang-check');
+if (option.dataset.lang === selectedLang) {
+check.classList.remove('opacity-0');
+check.classList.add('opacity-100');
+} else {
+check.classList.remove('opacity-100');
+check.classList.add('opacity-0');
+}
+});
+}
+// 闪购倒计时
+function updateTimer() {
+const now = new Date();
+const hours = 23 - now.getHours();
+const minutes = 59 - now.getMinutes();
+const seconds = 59 - now.getSeconds();
+const timerElements = document.querySelectorAll('.flash-sale-timer div');
+if (timerElements.length >= 3) {
+timerElements[0].textContent = hours < 10 ? '0' + hours : hours;
+timerElements[1].textContent = minutes < 10 ? '0' + minutes : minutes;
+timerElements[2].textContent = seconds < 10 ? '0' + seconds : seconds;
+}
+}
+updateTimer();
+setInterval(updateTimer, 1000);
+});
+</script>
 </body>
 </html>
