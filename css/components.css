@@ -1,0 +1,264 @@
+/* 产品卡片组件 */
+.product-card {
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+}
+
+.product-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.product-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+.product-card .card-body {
+    padding: 15px;
+}
+
+.product-card .card-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.product-card .card-text {
+    color: #757575;
+    font-size: 14px;
+    margin-bottom: 10px;
+    height: 40px;
+    overflow: hidden;
+}
+
+.product-card .price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #ff6700;
+}
+
+.product-card .original-price {
+    font-size: 14px;
+    color: #b0b0b0;
+    text-decoration: line-through;
+    margin-left: 5px;
+}
+
+.product-card .discount-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff6700;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+/* 按钮组件 */
+.btn-xiaomi {
+    background-color: #ff6700;
+    border-color: #ff6700;
+    color: white;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-xiaomi:hover {
+    background-color: #f25807;
+    border-color: #f25807;
+    color: white;
+}
+
+.btn-xiaomi-outline {
+    background-color: transparent;
+    border-color: #ff6700;
+    color: #ff6700;
+    border-radius: 4px;
+    padding: 8px 16px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.btn-xiaomi-outline:hover {
+    background-color: #ff6700;
+    color: white;
+}
+
+/* 表单组件 */
+.form-xiaomi .form-control {
+    border-radius: 4px;
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.3s ease;
+}
+
+.form-xiaomi .form-control:focus {
+    border-color: #ff6700;
+    box-shadow: 0 0 0 0.2rem rgba(255, 103, 0, 0.25);
+}
+
+.form-xiaomi .form-label {
+    font-size: 14px;
+    color: #424242;
+    margin-bottom: 8px;
+}
+
+/* 徽章组件 */
+.badge-xiaomi {
+    background-color: #ff6700;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+.badge-xiaomi-secondary {
+    background-color: #424242;
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: normal;
+}
+
+/* 会员积分组件 */
+.member-points {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.member-points .points-value {
+    font-size: 24px;
+    font-weight: 700;
+    color: #ff6700;
+}
+
+.member-points .points-label {
+    font-size: 14px;
+    color: #757575;
+}
+
+/* 评分组件 */
+.rating {
+    display: inline-block;
+}
+
+.rating .star {
+    color: #ffc107;
+    font-size: 16px;
+}
+
+.rating .star-empty {
+    color: #e0e0e0;
+    font-size: 16px;
+}
+
+.rating-count {
+    color: #757575;
+    font-size: 14px;
+    margin-left: 5px;
+}
+
+/* 闪购组件 */
+.flash-sale-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    margin-bottom: 20px;
+}
+
+.flash-sale-item .countdown {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+}
+
+.flash-sale-item .discount {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #ff6700;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* 多语言切换组件 */
+.language-selector {
+    position: relative;
+    display: inline-block;
+}
+
+.language-selector .current-language {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.language-selector .current-language:hover {
+    background-color: #f5f5f5;
+}
+
+.language-selector .language-icon {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+}
+
+.language-selector .language-options {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 10px 0;
+    z-index: 1000;
+    min-width: 150px;
+    display: none;
+}
+
+.language-selector:hover .language-options {
+    display: block;
+}
+
+.language-selector .language-option {
+    display: flex;
+    align-items: center;
+    padding: 8px 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.language-selector .language-option:hover {
+    background-color: #f5f5f5;
+}
+
+.language-selector .language-option .language-icon {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
+}

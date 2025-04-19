@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车 - Xhobon官方网站</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+    
+    
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.0/font/bootstrap-icons.css">
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <header class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html"><img src="images/logo.svg" alt="Xhobon" height="40"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown">
+                            手机
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">全部手机</a></li>
+                            <li><a class="dropdown-item" href="#">新品</a></li>
+                            <li><a class="dropdown-item" href="#">热销机型</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown">
+                            电视
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">全部电视</a></li>
+                            <li><a class="dropdown-item" href="#">智能电视</a></li>
+                            <li><a class="dropdown-item" href="#">激光投影</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown3" role="button" data-bs-toggle="dropdown">
+                            家电
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">全部家电</a></li>
+                            <li><a class="dropdown-item" href="#">空调</a></li>
+                            <li><a class="dropdown-item" href="#">净化器</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown">
+                            智能硬件
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">全部智能硬件</a></li>
+                            <li><a class="dropdown-item" href="#">穿戴设备</a></li>
+                            <li><a class="dropdown-item" href="#">智能家居</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">关于我们</a>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <div class="dropdown me-2">
+                        <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="languageDropdown" data-bs-toggle="dropdown">
+                            中文
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="#">中文</a></li>
+                            <li><a class="dropdown-item" href="#">English</a></li>
+                            <li><a class="dropdown-item" href="#">Bahasa Indonesia</a></li>
+                        </ul>
+                    </div>
+                    <a href="#" class="btn btn-outline-secondary me-2">登录</a>
+                    <a href="#" class="btn btn-outline-secondary me-2">注册</a>
+                    <a href="cart.html" class="btn btn-outline-secondary active">
+                        <i class="bi bi-cart"></i> 购物车
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 购物车内容 -->
+    <div class="container mt-5 pt-5">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="my-4">购物车</h1>
+                
+                <div class="cart-content">
+                    <!-- 购物车为空状态 -->
+                    <div class="cart-empty d-none">
+                        <div class="text-center py-5">
+                            <i class="bi bi-cart-x" style="font-size: 5rem; color: #ccc;"></i>
+                            <h3 class="mt-3">购物车还是空的</h3>
+                            <p class="text-muted">快去选购喜欢的商品吧！</p>
+                            <a href="index.html" class="btn btn-xiaomi mt-3">去购物</a>
+                        </div>
+                    </div>
+                    
+                    <!-- 购物车有商品状态 -->
+                    <div class="cart-items">
+                        <!-- 购物车表头 -->
+                        <div class="cart-header d-none d-md-flex bg-light p-3 mb-3 rounded">
+                            <div class="row w-100 align-items-center">
+                                <div class="col-md-1">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="selectAll">
+                                        <label class="form-check-label" for="selectAll">全选</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-5">商品信息</div>
+                                <div class="col-md-2 text-center">单价</div>
+                                <div class="col-md-2 text-center">数量</div>
+                                <div class="col-md-2 text-center">小计</div>
+                            </div>
+                        </div>
+                        
+                        <!-- 购物车商品列表 -->
+                        <div class="cart-list">
+                            <!-- 商品1 -->
+                            <div class="cart-item mb-3 p-3 border rounded">
+                                <div class="row align-items-center">
+                                    <div class="col-md-1 col-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input item-checkbox" type="checkbox" id="item1" checked>
+                                            <label class="form-check-label" for="item1"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-10">
+                                        <div class="d-flex">
+                                            <div class="cart-item-image me-3">
+                                                <div class="bg-light" style="width: 80px; height: 80px;"></div>
+                                            </div>
+                                            <div class="cart-item-info">
+                                                <h5 class="cart-item-title">智能手机 Pro</h5>
+                                                <p class="cart-item-desc text-muted mb-0">深空灰 8GB+256GB</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-4 text-md-center mt-3 mt-md-0">
+                                        <div class="cart-item-price">
+                                            <span class="current-price">¥2999</span>
+                                            <span class="original-price text-muted text-decoration-line-through d-block d-md-inline ms-md-2">¥3299</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-4 text-md-center mt-3 mt-md-0">
+                                        <div class="cart-item-quantity">
+                                            <div class="input-group">
+                                                <button class="btn btn-outline-secondary decrease-btn" type="button">-</button>
+                                                <input type="text" class="form-control text-center quantity-input" value="1">
+                                                <button class="btn btn-outline-secondary increase-btn" type="button">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-4 text-md-center mt-3 mt-md-0">
+                                        <div class="cart-item-subtotal text-danger fw-bold">¥2999</div>
+                                        <button class="btn btn-sm btn-link text-danger remove-btn">删除</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 商品2 -->
+                            <div class="cart-item mb-3 p-3 border rounded">
+                                <div class="row align-items-center">
+                                    <div class="col-md-1 col-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input item-checkbox" type="checkbox" id="item2" checked>
+                                            <label class="form-check-label" for="item2"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-10">
+                                        <div class="d-flex">
+                                            <div class="cart-item-image me-3">
+                                                <div class="bg-light" style="width: 80px; height: 80px;"></div>
+                                            </div>
+                                            <div class="cart-item-info">
+                                                <h5 class="cart-item-title">智能手表</h5>
+                                                <p class="cart-item-desc text-muted mb-0">黑色 标准版</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-4 text-md-center mt-3 mt-md-0">
+                                        <div class="cart-item-price">
+                                            <span class="current-price">¥899</span>
+                                            <span class="original-price text-muted text-decoration-line-through d-block d-md-inline ms-md-2">¥999</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-4 text-md-center mt-3 mt-md-0">
+                                        <div class="cart-item-quantity">
+                                            <div class="input-group">
+                                                <button class="btn btn-outline-secondary decrease-btn" type="button">-</button>
+                                                <input type="text" class="form-control text-center quantity-input" value="2">
+                                                <button class="btn btn-outline-secondary increase-btn" type="button">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-4 text-md-center mt-3 mt-md-0">
+                                        <div class="cart-item-subtotal text-danger fw-bold">¥1798</div>
+                                        <button class="btn btn-sm btn-link text-danger remove-btn">删除</button>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 商品3 -->
+                            <div class="cart-item mb-3 p-3 border rounded">
+                                <div class="row align-items-center">
+                                    <div class="col-md-1 col-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input item-checkbox" type="checkbox" id="item3">
+                                            <label class="form-check-label" for="item3"></label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5 col-10">
+                                        <div class="d-flex">
+                                            <div class="cart-item-image me-3">
+                                                <div class="bg-light" style="width: 80px; height: 80px;"></div>
+                                            </div>
+                                            <div class="cart-item-info">
+                                                <h5 class="cart-item-title">无线耳机</h5>
+                                                <p class="cart-item-desc text-muted mb-0">白色 主动降噪版</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-4 text-md-center mt-3 mt-md-0">
+                                        <div class="cart-item-price">
+                                            <span class="current-price">¥499</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-4 text-md-center mt-3 mt-md-0">
+                                        <div class="cart-item-quantity">
+                                            <div class="input-group">
+                                                <button class="btn btn-outline-secondary decrease-btn" type="button">-</button>
+                                                <input type="text" class="form-control text-center quantity-input" value="1">
+                                                <button class="btn btn-outline-secondary increase-btn" type="button">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2 col-4 text-md-center mt-3 mt-md-0">
+                                        <div class="cart-item-subtotal text-danger fw-bold">¥499</div>
+                                        <button class="btn btn-sm btn-link text-danger remove-btn">删除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- 购物车底部 -->
+                        <div class="cart-footer mt-4">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="cart-actions d-flex align-items-center">
+                                        <div class="form-check me-3">
+                                            <input class="form-check-input" type="checkbox" id="selectAllBottom">
+                                            <label class="form-check-label" for="selectAllBottom">全选</label>
+                                        </div>
+                                        <button class="btn btn-link text-danger me-3" id="batchRemoveBtn">批量删除</button>
+                                        <button class="btn btn-link" id="clearCartBtn">清空购物车</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="cart-summary d-flex flex-column flex-md-row justify-content-md-end align-items-md-center mt-3 mt-md-0">
+                                        <div class="summary-info me-md-4">
+                                            <span>已选择 <span class="selected-count text-danger">3</span> 件商品</span>
+                                            <span class="ms-3">合计(不含运费)：<span class="total-price text-danger fw-bold fs-4">¥4797</span></span>
+                                        </div>
+                                        <button class="btn btn-xiaomi btn-lg mt-3 mt-md-0" id="checkoutBtn">去结算</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 猜你喜欢 -->
+        <div class="recommendations mt-5">
+            <h3 class="mb-4">猜你喜欢</h3>
+            <div class="row">
+                <div class="col-6 col-md-3 mb-4">
+                    <div class="card product-card">
+                        <div class="product-image bg-light" style="height: 200px;"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">智能音箱</h5>
+                            <p class="card-text text-muted">AI语音助手，高品质音质</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">¥299</span>
+                                <button class="btn btn-sm btn-outline-primary add-to-cart-btn">加入购物车</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <div class="card product-card">
+                        <div class="product-image bg-light" style="height: 200px;"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">智能台灯</h5>
+                            <p class="card-text text-muted">护眼无频闪，智能调光</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">¥199</span>
+                                <button class="btn btn-sm btn-outline-primary add-to-cart-btn">加入购物车</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <div class="card product-card">
+                        <div class="product-image bg-light" style="height: 200px;"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">移动电源</h5>
+                            <p class="card-text text-muted">20000mAh大容量，快速充电</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">¥149</span>
+                                <button class="btn btn-sm btn-outline-primary add-to-cart-btn">加入购物车</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-md-3 mb-4">
+                    <div class="card product-card">
+                        <div class="product-image bg-light" style="height: 200px;"></div>
+                        <div class="card-body">
+                            <h5 class="card-title">蓝牙鼠标</h5>
+                            <p class="card-text text-muted">无线连接，精准定位</p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <span class="fw-bold">¥99</span>
+                                <button class="btn btn-sm btn-outline-primary add-to-cart-btn">加入购物车</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <footer class="bg-light py-5 mt-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <h5>购物指南</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-secondary">购物流程</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">会员介绍</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">常见问题</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>配送方式</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-secondary">配送范围</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">配送时间</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">配送费用</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>支付方式</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-secondary">支付宝</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">微信支付</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">银行卡支付</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <h5>关于我们</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-decoration-none text-secondary">公司介绍</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">联系我们</a></li>
+                        <li><a href="#" class="text-decoration-none text-secondary">加入我们</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row mt-4">
+                <div class="col-12 text-center">
+                    <p class="text-muted">© 2025 Xhobon.com 版权所有</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/core-functionality.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        // 购物车页面特定脚本
+        document.addEventListener('DOMContentLoaded', function() {
+            // 检查购物车是否为空
+            function checkCartEmpty() {
+                const cartItems = document.querySelectorAll('.cart-item');
+                const cartEmpty = document.querySelector('.cart-empty');
+                const cartItems_container = document.querySelector('.cart-items');
+                
+                if (cartItems.length === 0) {
+                    cartEmpty.classList.remove('d-none');
+                    cartItems_container.classList.add('d-none');
+                } else {
+                    cartEmpty.classList.add('d-none');
+                    cartItems_container.classList.remove('d-none');
+                }
+            }
+            
+            // 更新商品小计
+            function updateSubtotal(item) {
+                const priceEl = item.querySelector('.current-price');
+                const quantityEl = item.querySelector('.quantity-input');
+                const subtotalEl = item.querySelector('.cart-item-subtotal');
+                
+                const price = parseFloat(priceEl.textContent.replace('¥', ''));
+                const quantity = parseInt(quantityEl.value);
+                const subtotal = price * quantity;
+                
+                subtotalEl.textContent = '¥' + subtotal;
+            }
+            
+            // 更新总计
+            function updateTotal() {
+                const checkedItems = document.querySelectorAll('.item-checkbox:checked');
+                const totalPriceEl = document.querySelector('.total-price');
+                const selectedCountEl = document.querySelector('.selected-count');
+                
+                let total = 0;
+                checkedItems.forEach(checkbox => {
+                    const item = checkbox.closest('.cart-item');
+                    const subtotalEl = item.querySelector('.cart-item-subtotal');
+                    const subtotal = parseFloat(subtotalEl.textContent.replace('¥', ''));
+                    total += subtotal;
+                });
+                
+                totalPriceEl.textContent = '¥' + total;
+                selectedCountEl.textContent = checkedItems.length;
+            }
+            
+            // 数量增减按钮
+            const decreaseBtns = document.querySelectorAll('.decrease-btn');
+            const increaseBtns = document.querySelectorAll('.increase-btn');
+            const quantityInputs = document.querySelectorAll('.quantity-input');
+            
+            decreaseBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('.quantity-input');
+                    let value = parseInt(input.value);
+                    if (value > 1) {
+                        input.value = value - 1;
+                        const item = this.closest('.cart-item');
+                        updateSubtotal(item);
+                        updateTotal();
+                    }
+                });
+            });
+            
+            increaseBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const input = this.parentElement.querySelector('.quantity-input');
+                    let value = parseInt(input.value);
+                    input.value = value + 1;
+                    const item = this.closest('.cart-item');
+                    updateSubtotal(item);
+                    updateTotal();
+                });
+            });
+            
+            quantityInputs.forEach(input => {
+                input.addEventListener('change', function() {
+                    let value = parseInt(this.value);
+                    if (isNaN(value) || value < 1) {
+                        this.value = 1;
+                    }
+                    const item = this.closest('.cart-item');
+                    updateSubtotal(item);
+                    updateTotal();
+                });
+            });
+            
+            // 删除按钮
+            const removeBtns = document.querySelectorAll('.remove-btn');
+            removeBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (confirm('确定要删除该商品吗？')) {
+                        const item = this.closest('.cart-item');
+                        item.remove();
+                        checkCartEmpty();
+                        updateTotal();
+                    }
+                });
+            });
+            
+            // 全选按钮
+            const selectAllCheckboxes = document.querySelectorAll('#selectAll, #selectAllBottom');
+            const itemCheckboxes = document.querySelectorAll('.item-checkbox');
+            
+            selectAllCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const isChecked = this.checked;
+                    itemCheckboxes.forEach(itemCheckbox => {
+                        itemCheckbox.checked = isChecked;
+                    });
+                    selectAllCheckboxes.forEach(cb => {
+                        cb.checked = isChecked;
+                    });
+                    updateTotal();
+                });
+            });
+            
+            itemCheckboxes.forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    const allChecked = Array.from(itemCheckboxes).every(cb => cb.checked);
+                    selectAllCheckboxes.forEach(cb => {
+                        cb.checked = allChecked;
+                    });
+                    updateTotal();
+                });
+            });
+            
+            // 批量删除按钮
+            const batchRemoveBtn = document.getElementById('batchRemoveBtn');
+            batchRemoveBtn.addEventListener('click', function() {
+                const checkedItems = document.querySelectorAll('.item-checkbox:checked');
+                
+                if (checkedItems.length === 0) {
+                    alert('请先选择要删除的商品');
+                    return;
+                }
+                
+                if (confirm(`确定要删除选中的 ${checkedItems.length} 件商品吗？`)) {
+                    checkedItems.forEach(checkbox => {
+                        const item = checkbox.closest('.cart-item');
+                        item.remove();
+                    });
+                    checkCartEmpty();
+                    updateTotal();
+                }
+            });
+            
+            // 清空购物车按钮
+            const clearCartBtn = document.getElementById('clearCartBtn');
+            clearCartBtn.addEventListener('click', function() {
+                const cartItems = document.querySelectorAll('.cart-item');
+                
+                if (cartItems.length === 0) {
+                    alert('购物车已经是空的了');
+                    return;
+                }
+                
+                if (confirm('确定要清空购物车吗？')) {
+                    cartItems.forEach(item => {
+                        item.remove();
+                    });
+                    checkCartEmpty();
+                    updateTotal();
+                }
+            });
+            
+            // 结算按钮
+            const checkoutBtn = document.getElementById('checkoutBtn');
+            checkoutBtn.addEventListener('click', function() {
+                const checkedItems = document.querySelectorAll('.item-checkbox:checked');
+                
+                if (checkedItems.length === 0) {
+                    alert('请先选择要结算的商品');
+                    return;
+                }
+                
+                // 在实际项目中，这里应该跳转到结算页面
+                alert('正在跳转到结算页面...');
+                // window.location.href = 'checkout.html';
+            });
+            
+            // 猜你喜欢中的加入购物车按钮
+            const addToCartBtns = document.querySelectorAll('.add-to-cart-btn');
+            addToCartBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const productCard = this.closest('.product-card');
+                    const productTitle = productCard.querySelector('.card-title').textContent;
+                    const productPrice = productCard.querySelector('.fw-bold').textContent;
+                    
+                    alert(`已将 ${productTitle} 加入购物车`);
+                    
+                    // 在实际项目中，这里应该调用添加到购物车的API
+                    // 然后刷新购物车列表
+                });
+            });
+            
+            // 初始化
+            updateTotal();
+            checkCartEmpty();
+        });
+    </script>
+</body>
+</html>
